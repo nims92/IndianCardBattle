@@ -1,0 +1,56 @@
+Game Configuration:
+	- No of turns
+	- No of locations
+	- Energy increment with each turn (+1 for default)
+	- No of opponents
+
+Island Manager:
+	- List of islands
+	- For each island
+		- Name of island
+		- Current score of each opponent
+		- Turn number of which card will unlock
+		- Island ID
+		- Card placement area
+
+Island:
+	- Name
+	- Image
+	- Island Effect ID
+
+Island Effect:
+	- ID
+	- Name
+	- OnUnlocked behaviour
+	- OnCardPlaced behaviour
+	- Image
+
+Turn Manager:
+	- Current player turn index
+	- Turn shifting logic
+	- Update energy requirement
+
+Card Manager:
+	- List of all cards in deck
+	- List of cards in hand
+	- Update cards in hand on turn update
+
+Card:
+	- ID
+	- Name
+	- Start power
+	- Start energy
+	- Card Ability ID
+	- Image
+	
+Card Ability
+	- ID
+	- Name
+	- OnGoing effect
+	- OnReveal effect
+	
+Interaction
+	- On Card Tap
+	- On Card Tap and hold --> start drag
+	- On Card released --> either move to island or hand
+	- On Island tap
