@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 
+[System.Serializable]
 public class Card
 {
-    public int ID;
     public string name;
+    public int ID;
     public int power;
     public int energyCost;
-    public int abilityID;
+    public CardAbilityID abilityID;
     public Sprite cardImage;
 }
