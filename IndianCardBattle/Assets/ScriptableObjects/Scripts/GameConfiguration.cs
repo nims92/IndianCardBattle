@@ -9,5 +9,5 @@ public class GameConfiguration : ScriptableObject
     public int numberOfTurns;
     public int numberOfLocations;
     public int energyCostIncrementWithEachTurn;
-    public int numberOfOpponents;
+    public int numberOfPlayers;
 }
