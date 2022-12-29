@@ -14,4 +14,19 @@ public class LocationData
 public class GameplayData : ScriptableObject
 {
     [SerializeField] private LocationData locationData;
+
+    public Vector3 GetLocationSpawnPosForIndex(int index)
+    {
+        return locationData.locationSpawnPositions[index];
+    }
+
+    public Vector3 GetCardPlacementPositionForIndex(int index)
+    {
+        return locationData.cardPlacementPositions[index];
+    }
+
+    public Vector3 GetCardScaleAtLocation()
+    {
+        return locationData.cardScaleAtLocation;
+    }
 }
