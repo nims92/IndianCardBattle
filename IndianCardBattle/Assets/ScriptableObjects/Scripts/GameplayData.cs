@@ -20,9 +20,9 @@ public class GameplayData : ScriptableObject
         return locationData.locationSpawnPositions[index];
     }
 
-    public Vector3 GetCardPlacementPositionForIndex(int index)
+    public List<Vector3> GetCardPlacementPositions()
     {
-        return locationData.cardPlacementPositions[index];
+        return locationData.cardPlacementPositions;
     }
 
     public Vector3 GetCardScaleAtLocation()

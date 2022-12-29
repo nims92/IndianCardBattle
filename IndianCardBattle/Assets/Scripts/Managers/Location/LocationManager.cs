@@ -41,7 +41,7 @@ public class LocationManager : MonoBehaviour
          spawnPos = GameData.Instance.GetLocationSpawnPosForIndex(i);
          toSpawn = GameData.Instance.GetLocationPrefabWithID(locationID);
          toSpawn = Instantiate(toSpawn.gameObject,spawnPos,Quaternion.identity,selfTransform).GetComponent<Location>();
-         toSpawn.InitLocation(locationID,i,2);
+         toSpawn.InitLocation(locationID,i+1,Constants.NUMBER_OF_PLAYERS);
          locations.Add(toSpawn);
       }
    }

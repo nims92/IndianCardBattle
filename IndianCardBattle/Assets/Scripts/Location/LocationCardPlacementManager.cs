@@ -6,7 +6,10 @@ public class LocationCardPlacementManager :MonoBehaviour, ILocationCardPlacement
 
     public void Init()
     {
-        cardPlacements = new List<LocationCardPlacement>();
+        foreach (var cardPlacement in cardPlacements)
+        {
+            cardPlacement.Init(GameData.Instance.GetCardPlacementPositionForIndex());
+        }
     }
     
     public void AddCardToLocation(int playerIndex, ICard cardToAdd)

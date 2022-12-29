@@ -55,9 +55,9 @@ public class GameData : MonoBehaviour
         return gameplayData.GetLocationSpawnPosForIndex(index);
     }
 
-    public Vector3 GetCardPlacementPositionForIndex(int index)
+    public List<Vector3> GetCardPlacementPositionForIndex()
     {
-        return gameplayData.GetCardPlacementPositionForIndex(index);
+        return gameplayData.GetCardPlacementPositions();
     }
 
     public Vector3 GetCardScaleAtLocation()

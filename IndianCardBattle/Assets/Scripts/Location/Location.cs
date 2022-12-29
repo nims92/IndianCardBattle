@@ -13,6 +13,7 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
     {
         this.locationID = locationID;
         this.turnUnlockNumber = turnUnlockNumber;
+        SetUnlocked(CheckIfLocationUnlocked(1));
         
         //Score manager
         LocationScoreManager = new LocationScoreManager(numberOfPlayers);
@@ -26,18 +27,27 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
         
         //Card placement manager
         LocationCardPlacementManager = GetComponent<LocationCardPlacementManager>();
+        LocationCardPlacementManager.Init();
     }
 
     public void OnTurnUpdate(int turnNumber)
     {
         //TODO: turn updated
-        if (turnNumber == turnUnlockNumber)
+        if (CheckIfLocationUnlocked(turnNumber))
             OnIslandUnlocked();
     }
 
+    private bool CheckIfLocationUnlocked(int turnNumber)
+    {
+        if (turnNumber == turnUnlockNumber)
+            return true;
+        return false;
+    }
+    
     private void OnIslandUnlocked()
     {
         //TODO: implementation pending
+        SetUnlocked(true);
     }
 
     #region IUnlockable implementation
