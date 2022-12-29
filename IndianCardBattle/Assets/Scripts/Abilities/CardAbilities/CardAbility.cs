@@ -1,10 +1,6 @@
 using UnityEngine;
 
-public enum CardAbilityID
-{
-    None = 0,
-    TestCardAbility = 1
-}
+
 
 [System.Serializable]
 public class CardAbility

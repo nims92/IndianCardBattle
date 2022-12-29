@@ -1,10 +1,5 @@
 using UnityEngine;
 
-public enum LocationAbilityID
-{
-    None = 0,
-    TestIslandAbility = 1
-}
 
 [System.Serializable]
 public class LocationAbility

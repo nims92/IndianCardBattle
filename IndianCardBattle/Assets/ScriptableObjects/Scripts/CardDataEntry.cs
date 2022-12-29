@@ -6,9 +6,8 @@ public enum CardID
     Naukla = 1
 }
 
-
 [System.Serializable]
-public class CardEntry
+public class CardDataEntry
 {
     public string name;
     public CardID cardID;
