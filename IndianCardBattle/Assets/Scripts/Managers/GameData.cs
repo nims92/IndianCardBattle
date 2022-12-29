@@ -6,8 +6,22 @@ public class GameData : MonoBehaviour
 {
     [SerializeField] private LocationDatabase locationDatabase;
     [SerializeField] private GameplayData gameplayData;
-    public static GameData Instance { get; private set; }
+    [SerializeField] private CheatData cheatData;
     
+    public static GameData Instance { get; private set; }
+
+    public LocationDatabase LocationDatabase
+    {
+        get => locationDatabase;
+        set => locationDatabase = value;
+    }
+
+    public CheatData CheatData
+    {
+        get => cheatData;
+        set => cheatData = value;
+    }
+
     private void Awake() 
     { 
         // If there is an instance, and it's not me, delete myself.
@@ -26,7 +40,12 @@ public class GameData : MonoBehaviour
 
     public Location GetLocationPrefabWithID(LocationID locationID)
     {
-        return locationDatabase.locationList.Find(location => location.locationID == locationID).locationPrefab;
+        return LocationDatabase.locationList.Find(location => location.locationID == locationID).locationPrefab;
+    }
+
+    public string GetLocationNameWithID(LocationID locationID)
+    {
+        return LocationDatabase.locationList.Find(location => location.locationID == locationID).name;
     }
     #endregion
     

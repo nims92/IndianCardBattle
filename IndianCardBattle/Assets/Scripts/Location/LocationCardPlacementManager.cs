@@ -4,6 +4,11 @@ public class LocationCardPlacementManager :MonoBehaviour, ILocationCardPlacement
 {
     [SerializeField] private List<LocationCardPlacement> cardPlacements;
 
+    public void Init()
+    {
+        cardPlacements = new List<LocationCardPlacement>();
+    }
+    
     public void AddCardToLocation(int playerIndex, ICard cardToAdd)
     {
         if(IsValidPlayerIndex(playerIndex))

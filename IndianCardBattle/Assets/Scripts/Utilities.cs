@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class Utilities
@@ -18,4 +21,8 @@ public static class Utilities
         return aspectRatio < 1.4f || aspectRatio < 1.65f;
     }
     
+    public static List<t> GetRandomElements<t>(IEnumerable<t> list, int elementsCount)
+    {
+        return list.OrderBy(x => Guid.NewGuid()).Take(elementsCount).ToList();
+    }
 }

@@ -302,6 +302,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locationDatabase: {fileID: 11400000, guid: 912f6e86da14145c7ba28b767d0d34e9, type: 2}
   gameplayData: {fileID: 11400000, guid: 93e9d38315963473cadce515f0d7dae7, type: 2}
+  cheatData: {fileID: 11400000, guid: 34e6d0e83b3d34a6593cd65d1cfebedf, type: 2}
 --- !u!1 &520597681
 GameObject:
   m_ObjectHideFlags: 0

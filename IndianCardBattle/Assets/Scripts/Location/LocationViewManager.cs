@@ -13,6 +13,14 @@ public class LocationViewManager : MonoBehaviour, ILocationViewManager
     [SerializeField] private Image locationBGImage;
     #endregion
 
+    public void InitView(int playerScore,int opponentScore,string locationDescription,string locationName)
+    {
+        UpdatePlayerScore(playerScore);
+        UpdateOpponentScore(opponentScore);
+        UpdateLocationName(locationName);
+        UpdateLocationDescriptionText(locationDescription);
+    }
+    
     public void UpdatePlayerScore(int score)
     {
         playerScoreText.text = string.Empty + score;
