@@ -1,16 +1,16 @@
 using UnityEngine;
 
-public enum IslandAbilityID
+public enum LocationAbilityID
 {
     None = 0,
     TestIslandAbility = 1
 }
 
 [System.Serializable]
-public class IslandAbility
+public class LocationAbility
 {
     public string nameOfAbility;
-    public IslandAbilityID ID;
+    public LocationAbilityID ID;
     public string abilityDescription;
 
     public void OnGoingEffectTriggered()

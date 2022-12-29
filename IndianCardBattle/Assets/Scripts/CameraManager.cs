@@ -10,7 +10,7 @@ public class CameraManager : MonoBehaviour
 
     private void Awake()
     {
-        //TODO: check for tablet devices
-        camera.fieldOfView = Utilities.CalculateVerticalFOV(desiredHorizontalFOV);
+        if(!Utilities.IsTabletDevice())
+            camera.fieldOfView = Utilities.CalculateVerticalFOV(desiredHorizontalFOV);
     }
 }

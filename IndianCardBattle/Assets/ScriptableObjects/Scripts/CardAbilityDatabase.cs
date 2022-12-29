@@ -6,5 +6,5 @@ using UnityEngine;
 
 public class CardAbilityDatabase : ScriptableObject
 {
-    public List<IslandAbility> listOfCardAbilities;
+    public List<LocationAbility> listOfCardAbilities;
 }

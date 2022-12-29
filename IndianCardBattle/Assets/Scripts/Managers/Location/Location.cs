@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Island : MonoBehaviour
+public class Location : MonoBehaviour
 {
     private ScoreManager scoreManager;
     private int turnUnlockNumber;

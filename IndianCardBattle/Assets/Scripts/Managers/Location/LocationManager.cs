@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IslandManager : MonoBehaviour
+public class LocationManager : MonoBehaviour
 {
-    private List<Island> islands;
+    private List<Location> islands;
 
 
 }

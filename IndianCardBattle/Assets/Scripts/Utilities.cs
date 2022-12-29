@@ -11,4 +11,11 @@ public static class Utilities
     {
         return Camera.HorizontalToVerticalFieldOfView(horizontalFOV, GetDeviceAspectRatio());
     }
+
+    public static bool IsTabletDevice()
+    {
+        var aspectRatio = GetDeviceAspectRatio();
+        return aspectRatio < 1.4f || aspectRatio < 1.65f;
+    }
+    
 }
