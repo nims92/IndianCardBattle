@@ -4,7 +4,5 @@ using UnityEngine;
 
 public class LocationManager : MonoBehaviour
 {
-    private List<Location> islands;
-
-
+    private List<Location> locations;
 }

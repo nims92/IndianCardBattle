@@ -1,0 +1,17 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
+public class LocationData
+{
+    public List<Vector3> locationSpawnPositions;
+    public List<Vector3> cardPlacementPositions;
+    public Vector3 cardScaleAtLocation;
+}
+
+[CreateAssetMenu(fileName = "Gameplay Data", menuName = "Scriptable Objects/Gameplay Data", order = 1)]
+public class GameplayData : ScriptableObject
+{
+    [SerializeField] private LocationData locationData;
+}

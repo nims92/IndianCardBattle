@@ -1,13 +1,13 @@
-﻿public class ScoreManager
+﻿public class LocationScoreManager : ILocationScoreManager
 {
     private int [] playerScores;
 
-    public ScoreManager(int totalPlayers)
+    public LocationScoreManager(int totalPlayers)
     {
         playerScores = new int[totalPlayers];
     }
     
-    public void AddToScoreForPlayer(int score, int playerIndex)
+    public void AddScoreForPlayer(int score, int playerIndex)
     {
         playerScores[playerIndex] += score;
     }

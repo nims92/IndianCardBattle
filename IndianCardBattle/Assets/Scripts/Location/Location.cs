@@ -1,19 +1,19 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Location : MonoBehaviour
+public class Location : MonoBehaviour, ILocation, IUnlockable
 {
-    private ScoreManager scoreManager;
-    private int turnUnlockNumber;
-    private List<Card> cardsInIsland;
     private bool isUnlocked;
+    private int turnUnlockNumber;
+    public ILocationScoreManager LocationScoreManager { get; set; }
+    public ILocationViewManager LocationViewManager { get; set; }
+    public ILocationCardPlacementManager LocationCardPlacementManager { get; set; }
 
-    public bool IsUnlocked { get => isUnlocked; set => isUnlocked = value; }
-
-    public void InitIsland(int turnUnlockNumber)
+    public void InitLocation(int turnUnlockNumber,int numberOfPlayers)
     {
         this.turnUnlockNumber = turnUnlockNumber;
-        //TODO: init score manager
+        LocationScoreManager = new LocationScoreManager(numberOfPlayers);
+        LocationViewManager = GetComponentInChildren<LocationViewManager>();
+        LocationCardPlacementManager = GetComponent<LocationCardPlacementManager>();
     }
 
     public void OnTurnUpdate(int turnNumber)
@@ -23,18 +23,22 @@ public class Location : MonoBehaviour
             OnIslandUnlocked();
     }
 
-    public void OnIslandUnlocked()
+    private void OnIslandUnlocked()
     {
-
+        //TODO: implementation pending
     }
 
-    public void AddCardToIsland(Card cardToAdd)
+    #region IUnlockable implementation
+
+    public bool IsUnlocked()
     {
-        cardsInIsland.Add(cardToAdd);
+        return isUnlocked;
     }
 
-    public void RemoveToIsland(Card careToRemove)
+    public void SetUnlocked(bool value)
     {
-        cardsInIsland.Remove(careToRemove);
+        isUnlocked = value;
     }
+
+    #endregion
 }
