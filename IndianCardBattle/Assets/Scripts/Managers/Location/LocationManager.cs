@@ -3,26 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LocationManager : MonoBehaviour
+public class LocationManager : ILocationManager
 {
    private List<Location> locations;
    private Transform selfTransform;
+   private IObjectSpawner objectSpawner;
 
-   private void Awake()
+   public LocationManager(IObjectSpawner objectSpawner, Transform transform)
    {
+      this.objectSpawner = objectSpawner;
       selfTransform = transform;
       locations = new List<Location>();
-   }
-
-   private void Start()
-   {
+      
 #if CHEAT_ENABLED
       SpawnLocations(GameData.Instance.CheatData.locationSpawnList);
 #else
       SpawnLocations(GetRandomListOfLocations());
 #endif
    }
-   
+
    public void SpawnLocations(List<LocationID> locationsToSpawn)
    {
       if (locationsToSpawn.Count != Constants.NUMBER_OF_LOCATIONS)
@@ -40,13 +39,13 @@ public class LocationManager : MonoBehaviour
          locationID = locationsToSpawn[i];
          spawnPos = GameData.Instance.GetLocationSpawnPosForIndex(i);
          toSpawn = GameData.Instance.GetLocationPrefabWithID(locationID);
-         toSpawn = Instantiate(toSpawn.gameObject,spawnPos,Quaternion.identity,selfTransform).GetComponent<Location>();
+         toSpawn = objectSpawner.SpawnObjectOfType(toSpawn, spawnPos, Quaternion.identity, selfTransform);
          toSpawn.InitLocation(locationID,i+1,Constants.NUMBER_OF_PLAYERS);
          locations.Add(toSpawn);
       }
    }
 
-   public List<LocationID> GetRandomListOfLocations()
+   private List<LocationID> GetRandomListOfLocations()
    {
       List<LocationDataEntry> data = Utilities.GetRandomElements(GameData.Instance.LocationDatabase.locationList,
          Constants.NUMBER_OF_LOCATIONS);
@@ -57,5 +56,16 @@ public class LocationManager : MonoBehaviour
          data[1].locationID,
          data[2].locationID
       };
+   }
+
+   public void AddCardToLocation(int playerIndex, Location location, ICard card)
+   {
+      location.AddCardToLocation(playerIndex, card);
+   }
+   
+   //TODO remove this code
+   public Location GetFirstLocation()
+   {
+      return locations[0];
    }
 }

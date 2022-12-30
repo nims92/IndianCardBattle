@@ -1,5 +1,8 @@
+using UnityEngine;
+
 public interface ICardDeckManager
 {
-    void RemoveCardFromDeck(CardID cardID);
-    CardID DrawCardFromDeck(int energyCost);
+    void AddCardToDeck(Card card);
+    void RemoveCardFromDeck(Card cardID);
+    Card DrawCardFromDeck(int energyCost);
 }

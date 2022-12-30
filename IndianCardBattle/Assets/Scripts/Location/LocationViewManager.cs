@@ -20,6 +20,14 @@ public class LocationViewManager : MonoBehaviour, ILocationViewManager
         UpdateLocationName(locationName);
         UpdateLocationDescriptionText(locationDescription);
     }
+
+    public void UpdateScore(bool playerScore, int score)
+    {
+        if (playerScore)
+            UpdatePlayerScore(score);
+        else 
+            UpdateOpponentScore(score);
+    }
     
     public void UpdatePlayerScore(int score)
     {

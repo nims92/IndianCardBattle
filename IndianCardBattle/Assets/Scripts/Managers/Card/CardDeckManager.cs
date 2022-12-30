@@ -3,39 +3,72 @@ using UnityEngine;
 
 public class CardDeckManager : ICardDeckManager
 {
-    private List<CardID> cardsInDeck;
+    private List<Card> cardsInDeck;
+    private Transform parentTransform;
+    private IObjectSpawner objectSpawner;
     
-    public CardDeckManager(Deck deck)
+    public CardDeckManager(IObjectSpawner objectSpawner,Deck deck, Transform transform)
     {
-        cardsInDeck = new List<CardID>(deck.CardsInDeck);
-    }
-
-    public void RemoveCardFromDeck(CardID cardID)
-    {
-        cardsInDeck.Remove(cardID);
-    }
-
-    public CardID DrawCardFromDeck(int energyCost)
-    {
-        //TODO: get a card using design logic
-        var selectedCardID = SelectCardFromDeck(energyCost);
+        this.objectSpawner = objectSpawner;
+        cardsInDeck = new List<Card>();
+        parentTransform = transform;
         
-        RemoveCardFromDeck(selectedCardID);
+        foreach (var cardID in deck.CardsInDeck)
+        {
+            var card = SpawnCard(cardID);
+            card.InitCard(cardID);
+            AddCardToDeck(card);
+        }
+    }
+    
+    public void AddCardToDeck(Card card)
+    {
+        card.CardMovementManager.ChangeParent(parentTransform);
+        card.CardMovementManager.MoveToPosition(parentTransform.position);
+        cardsInDeck.Add(card);
+    }
 
-        return selectedCardID;
+    public void RemoveCardFromDeck(Card card)
+    {
+        cardsInDeck.Remove(card);
+    }
+
+    public Card DrawCardFromDeck(int energyCost)
+    {
+        var selectedCardID = SelectCardFromDeck(energyCost);
+        var card = cardsInDeck.Find(c => c.CardID == selectedCardID);
+        RemoveCardFromDeck(card);
+        return card;
     }
 
     private CardID SelectCardFromDeck(int energyCost)
     {
         List<CardID> returnList = new List<CardID>();
-
-        returnList.AddRange(GameData.Instance.GetCardIDWithGivenCost(energyCost-1));
-        returnList.AddRange(GameData.Instance.GetCardIDWithGivenCost(energyCost));
-        returnList.AddRange(GameData.Instance.GetCardIDWithGivenCost(energyCost+1));
         
-        int randomCardIndex = Random.Range(0, returnList.Count);
+        returnList.AddRange(GameData.Instance.GetCardIDWithGivenCost(cardsInDeck,energyCost-1));
+        returnList.AddRange(GameData.Instance.GetCardIDWithGivenCost(cardsInDeck,energyCost));
+        returnList.AddRange(GameData.Instance.GetCardIDWithGivenCost(cardsInDeck,energyCost+1));
+
+        int randomCardIndex;
+        
+        //Due to some reason, return list is still empty
+        //In that case, select any random card
+        if (returnList.Count == 0)
+        {
+            randomCardIndex = Random.Range(0, cardsInDeck.Count);
+            return cardsInDeck[randomCardIndex].CardID;
+        }
+        
+        randomCardIndex = Random.Range(0, returnList.Count);
         return returnList[randomCardIndex];
     }
-    
+
+    private Card SpawnCard(CardID cardID)
+    {
+        return objectSpawner.SpawnObjectOfType(GameData.Instance.GetCardPrefabByID(cardID),
+            parentTransform.position,
+            Quaternion.identity,
+            parentTransform);
+    }
     
 }

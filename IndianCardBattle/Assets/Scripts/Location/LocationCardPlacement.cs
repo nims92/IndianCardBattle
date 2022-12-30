@@ -9,6 +9,7 @@ public class LocationCardPlacement :MonoBehaviour, ILocationCardPlacement
     public void Init(List<Vector3> placementPositions)
     {
         placements = placementPositions;
+        currentCards = new List<ICard>();
     }
 
     public bool IsPlacementAreaFull()
@@ -21,16 +22,18 @@ public class LocationCardPlacement :MonoBehaviour, ILocationCardPlacement
         if (IsPlacementAreaFull())
             return Vector3.zero;
 
-        return placements[currentCards.Count - 1];
+        return placements[currentCards.Count];
     }
 
     public void AddCard(ICard card)
     {
         if (IsPlacementAreaFull())
             return;
-
-        //TODO: add logic for placement
-
+        
+        card.CardMovementManager.ChangeParent(transform);
+        card.CardMovementManager.MoveToLocalPosition(GetNextEmptyPosition());
+        card.CardMovementManager.ChangeScaleTo(GameData.Instance.GetCardScaleAtLocation());
+        card.CardStateManager.SetCardState(CardState.Location);
         currentCards.Add(card);
     }
 

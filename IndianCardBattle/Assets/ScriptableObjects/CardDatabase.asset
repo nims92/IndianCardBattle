@@ -18,89 +18,89 @@ MonoBehaviour:
     cardStats:
       energyCost: 1
       power: 1
-    cardPrefab: {fileID: 0}
+    cardPrefab: {fileID: 4682365555451357970, guid: 2ab75b83023a74e1e99297e837f885f5, type: 3}
     abilityID: 0
   - name: Amba
     cardID: 2
     cardStats:
       energyCost: 1
       power: 2
-    cardPrefab: {fileID: 0}
+    cardPrefab: {fileID: 4682365555451357970, guid: 2ab75b83023a74e1e99297e837f885f5, type: 3}
     abilityID: 0
   - name: Sahadev
     cardID: 3
     cardStats:
       energyCost: 1
       power: 2
-    cardPrefab: {fileID: 0}
+    cardPrefab: {fileID: 4682365555451357970, guid: 2ab75b83023a74e1e99297e837f885f5, type: 3}
     abilityID: 0
   - name: Gandhari
     cardID: 4
     cardStats:
       energyCost: 1
       power: 2
-    cardPrefab: {fileID: 0}
+    cardPrefab: {fileID: 4682365555451357970, guid: 2ab75b83023a74e1e99297e837f885f5, type: 3}
     abilityID: 0
   - name: Kaurava
     cardID: 5
     cardStats:
       energyCost: 2
       power: 3
-    cardPrefab: {fileID: 0}
+    cardPrefab: {fileID: 4682365555451357970, guid: 2ab75b83023a74e1e99297e837f885f5, type: 3}
     abilityID: 0
   - name: Duhsasana
     cardID: 6
     cardStats:
       energyCost: 2
       power: 3
-    cardPrefab: {fileID: 0}
+    cardPrefab: {fileID: 4682365555451357970, guid: 2ab75b83023a74e1e99297e837f885f5, type: 3}
     abilityID: 0
   - name: Shakuni
     cardID: 7
     cardStats:
       energyCost: 2
       power: 2
-    cardPrefab: {fileID: 0}
+    cardPrefab: {fileID: 4682365555451357970, guid: 2ab75b83023a74e1e99297e837f885f5, type: 3}
     abilityID: 0
   - name: Dhritarashtra
     cardID: 8
     cardStats:
       energyCost: 3
       power: 4
-    cardPrefab: {fileID: 0}
+    cardPrefab: {fileID: 4682365555451357970, guid: 2ab75b83023a74e1e99297e837f885f5, type: 3}
     abilityID: 0
   - name: Abhimanyu
     cardID: 9
     cardStats:
       energyCost: 3
       power: 2
-    cardPrefab: {fileID: 0}
+    cardPrefab: {fileID: 4682365555451357970, guid: 2ab75b83023a74e1e99297e837f885f5, type: 3}
     abilityID: 0
   - name: Bakasura
     cardID: 10
     cardStats:
       energyCost: 4
       power: 6
-    cardPrefab: {fileID: 0}
+    cardPrefab: {fileID: 4682365555451357970, guid: 2ab75b83023a74e1e99297e837f885f5, type: 3}
     abilityID: 0
   - name: Yuddhishthira
     cardID: 11
     cardStats:
       energyCost: 5
       power: 9
-    cardPrefab: {fileID: 0}
+    cardPrefab: {fileID: 4682365555451357970, guid: 2ab75b83023a74e1e99297e837f885f5, type: 3}
     abilityID: 0
   - name: Drona
     cardID: 12
     cardStats:
       energyCost: 5
       power: 0
-    cardPrefab: {fileID: 0}
+    cardPrefab: {fileID: 4682365555451357970, guid: 2ab75b83023a74e1e99297e837f885f5, type: 3}
     abilityID: 0
   - name: Bheema
     cardID: 13
     cardStats:
       energyCost: 6
       power: 12
-    cardPrefab: {fileID: 0}
+    cardPrefab: {fileID: 4682365555451357970, guid: 2ab75b83023a74e1e99297e837f885f5, type: 3}
     abilityID: 0

@@ -6,6 +6,13 @@ public class CardViewManager : MonoBehaviour,ICardViewManager
     [SerializeField] private TextMeshProUGUI cardNameText;
     [SerializeField] private TextMeshProUGUI costText;
     [SerializeField] private TextMeshProUGUI powerText;
+
+    public void InitCardViewManager(string cardName, int cost, int power)
+    {
+        UpdateCardName(cardName);
+        UpdateCardCost(cost);
+        UpdateCardPower(power);
+    }
     
     public void UpdateCardName(string cardName)
     {

@@ -1,15 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class PlayerProfile : MonoBehaviour
+public class PlayerProfile
 {
-    private string playerName;
-    private int playerIndex;
+    private readonly string playerName;
+    private readonly int playerID;
 
-    public void InitPlayerProfile(string playerName, int playerIndex)
+    public PlayerProfile(string playerName, int playerID)
     {
         this.playerName = playerName;
-        this.playerIndex = playerIndex;
+        this.playerID = playerID;
+    }
+
+    public int GetPlayerID()
+    {
+        return playerID;
+    }
+
+    public string GetPlayerName()
+    {
+        return playerName;
     }
 }

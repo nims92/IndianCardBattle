@@ -1,24 +1,41 @@
 public class TurnManager
 {
-    private int currentTurnIndex;
+    private int currentTurnPlayerIndex;
     private int totalNumberOfPlayers;
-
-    public int CurrentTurnIndex { get => currentTurnIndex; set => currentTurnIndex = value; }
+    private int turnCounter;
+    private int maxAllowedTurnsForGame;
+    public int CurrentTurnPlayerIndex { get => currentTurnPlayerIndex; set => currentTurnPlayerIndex = value; }
     public int TotalNumberOfPlayers { get => totalNumberOfPlayers; set => totalNumberOfPlayers = value; }
 
-    public TurnManager(int totalNumberOfPlayers)
+    public int TurnCounter
     {
-        CurrentTurnIndex = 0;
+        get => turnCounter;
+        set => turnCounter = value;
+    }
+
+    public TurnManager(int totalNumberOfPlayers, int maxAllowedTurnsForGame)
+    {
+        CurrentTurnPlayerIndex = 1;
         TotalNumberOfPlayers = totalNumberOfPlayers;
+        this.maxAllowedTurnsForGame = maxAllowedTurnsForGame;
     }
 
     public void UpdateTurn()
     {
-        currentTurnIndex++;
+        TurnCounter++;
+        CurrentTurnPlayerIndex++;
 
-        if (currentTurnIndex == totalNumberOfPlayers)
-            currentTurnIndex = 0;
+        if (CurrentTurnPlayerIndex == totalNumberOfPlayers)
+            CurrentTurnPlayerIndex = 0;
 
         //TODO: fire event of turn updated
+    }
+    
+    public bool IsMoreTurnAllowed()
+    {
+        if (TurnCounter == maxAllowedTurnsForGame)
+            return false;
+
+        return true;
     }
 }

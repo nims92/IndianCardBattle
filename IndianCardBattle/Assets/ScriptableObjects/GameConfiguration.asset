@@ -15,3 +15,4 @@ MonoBehaviour:
   numberOfTurns: 6
   energyCostIncrementWithEachTurn: 1
   cardDeckSize: 12
+  maxCardInHand: 5

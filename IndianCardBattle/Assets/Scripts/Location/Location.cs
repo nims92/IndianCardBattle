@@ -63,4 +63,14 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
     }
 
     #endregion
+
+    public void AddCardToLocation(int playerIndex,ICard card)
+    {
+        LocationCardPlacementManager.AddCardToLocation(playerIndex,card);
+        LocationScoreManager.AddScoreForPlayer(card.CardStatsManager.GetCardPower(),playerIndex);
+        
+        //TODO: update player index check logic
+        LocationViewManager.UpdateScore(playerIndex == 0,LocationScoreManager.GetScoreForPlayer(playerIndex));
+    }
+    
 }

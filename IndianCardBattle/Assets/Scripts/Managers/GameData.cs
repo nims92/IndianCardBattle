@@ -88,11 +88,11 @@ public class GameData : MonoBehaviour
         return new CardStats(cardStats.energyCost, cardStats.power);
     }
 
-    public List<CardID> GetCardIDWithGivenCost(int eneryCost)
+    public List<CardID> GetCardIDWithGivenCost(List<Card> cardList,int eneryCost)
     {
-        return CardDatabase.cardList
-            .FindAll(card => card.cardStats.energyCost == eneryCost)
-            .Select(card => card.cardID)
+        return cardList
+            .FindAll(card => card.CardStatsManager.GetCardCost() == eneryCost)
+            .Select(card => card.CardID)
             .ToList();
     }
 
