@@ -1,25 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameData : MonoBehaviour
 {
-    [SerializeField] private LocationDatabase locationDatabase;
     [SerializeField] private GameplayData gameplayData;
-    [SerializeField] private CheatData cheatData;
+    [SerializeField] private GameConfiguration gameConfiguration;
     
+    [Space(10)]
+    [SerializeField] private LocationDatabase locationDatabase;
+    [SerializeField] private CardDatabase cardDatabase;
+    
+    [Space(10)]
+    [SerializeField] private CheatData cheatData;
+
     public static GameData Instance { get; private set; }
 
     public LocationDatabase LocationDatabase
     {
         get => locationDatabase;
-        set => locationDatabase = value;
     }
 
     public CheatData CheatData
     {
         get => cheatData;
-        set => cheatData = value;
+    }
+
+    public CardDatabase CardDatabase
+    {
+        get => cardDatabase;
+    }
+
+    public GameConfiguration GameConfiguration
+    {
+        get => gameConfiguration;
     }
 
     private void Awake() 
@@ -64,5 +79,32 @@ public class GameData : MonoBehaviour
     {
         return gameplayData.GetCardScaleAtLocation();
     }
+    #endregion
+    
+    #region Card data provider methods
+    public CardStats GetCardStatsByID(CardID cardID)
+    {
+        CardStats cardStats = CardDatabase.cardList.Find(card => card.cardID == cardID).cardStats;
+        return new CardStats(cardStats.energyCost, cardStats.power);
+    }
+
+    public List<CardID> GetCardIDWithGivenCost(int eneryCost)
+    {
+        return CardDatabase.cardList
+            .FindAll(card => card.cardStats.energyCost == eneryCost)
+            .Select(card => card.cardID)
+            .ToList();
+    }
+
+    public string GetCardNameByID(CardID cardID)
+    {
+        return CardDatabase.cardList.Find(card => card.cardID == cardID).name;
+    }
+
+    public Card GetCardPrefabByID(CardID cardID)
+    {
+        return CardDatabase.cardList.Find(card => card.cardID == cardID).cardPrefab;
+    }
+    
     #endregion
 }

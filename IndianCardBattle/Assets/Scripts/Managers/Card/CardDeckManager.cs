@@ -1,17 +1,41 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
-public class CardDeckManager
+public class CardDeckManager : ICardDeckManager
 {
-    private List<Card> cardsInDeck;
-
-    public CardDeckManager(List<Card> cards)
+    private List<CardID> cardsInDeck;
+    
+    public CardDeckManager(Deck deck)
     {
-        cardsInDeck = cards;
+        cardsInDeck = new List<CardID>(deck.CardsInDeck);
     }
 
-    public Card DrawCardFromDeck()
+    public void RemoveCardFromDeck(CardID cardID)
     {
-        //TODO: implementation pending
-        return null;
+        cardsInDeck.Remove(cardID);
     }
+
+    public CardID DrawCardFromDeck(int energyCost)
+    {
+        //TODO: get a card using design logic
+        var selectedCardID = SelectCardFromDeck(energyCost);
+        
+        RemoveCardFromDeck(selectedCardID);
+
+        return selectedCardID;
+    }
+
+    private CardID SelectCardFromDeck(int energyCost)
+    {
+        List<CardID> returnList = new List<CardID>();
+
+        returnList.AddRange(GameData.Instance.GetCardIDWithGivenCost(energyCost-1));
+        returnList.AddRange(GameData.Instance.GetCardIDWithGivenCost(energyCost));
+        returnList.AddRange(GameData.Instance.GetCardIDWithGivenCost(energyCost+1));
+        
+        int randomCardIndex = Random.Range(0, returnList.Count);
+        return returnList[randomCardIndex];
+    }
+    
+    
 }

@@ -1,0 +1,16 @@
+Player:
+    - Card Manager
+        - Deck manager
+        - Hand manager
+    - Input Manager
+        - AI
+        - Touch/Mouse
+        - Photon
+    - Profile
+        - Name
+        - Icon
+        
+        
+Turn Manager:
+       
+        

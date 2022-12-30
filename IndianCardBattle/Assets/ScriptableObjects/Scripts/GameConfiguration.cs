@@ -8,4 +8,5 @@ public class GameConfiguration : ScriptableObject
 {
     public int numberOfTurns;
     public int energyCostIncrementWithEachTurn;
+    public int cardDeckSize;
 }

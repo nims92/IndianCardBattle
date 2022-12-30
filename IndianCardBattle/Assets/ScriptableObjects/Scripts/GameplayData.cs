@@ -10,6 +10,14 @@ public class LocationData
     public Vector3 cardScaleAtLocation;
 }
 
+[System.Serializable]
+public class CardData
+{
+    public Vector3 cardScaleAtLocation;
+    public Vector3 cardScaleAtHand;
+    public Vector3 cardScaleAtDeck;
+}
+
 [CreateAssetMenu(fileName = "Gameplay Data", menuName = "Scriptable Objects/Gameplay Data", order = 1)]
 public class GameplayData : ScriptableObject
 {

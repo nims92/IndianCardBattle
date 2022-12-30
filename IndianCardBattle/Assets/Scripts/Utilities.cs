@@ -25,4 +25,9 @@ public static class Utilities
     {
         return list.OrderBy(x => Guid.NewGuid()).Take(elementsCount).ToList();
     }
+    
+    public static IList<T> Clone<T>(this IList<T> listToClone) where T: ICloneable
+    {
+        return listToClone.Select(item => (T)item.Clone()).ToList();
+    }
 }

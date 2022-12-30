@@ -1,20 +1,24 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
+using UnityEngine;
 
-public class CardInHandManager
+public class CardInHandManager : ICardHandManager
 {
     private List<Card> cardsInHand;
+    private Transform selfTransform;
 
-    public CardInHandManager(List<Card> cardsInHand)
+    public CardInHandManager(Transform transform)
     {
-        this.cardsInHand = cardsInHand;
+        selfTransform = transform;
+        cardsInHand = new List<Card>();
     }
 
-    public void AddCardToHand(Card cardToAdd)
+    public void AddCardToHand(ICard cardToAdd)
     {
         //TODO: implementation pending
     }
 
-    public void RemoveCardFromHand(Card cardToRemove)
+    public void RemoveCardFromHand(ICard cardToRemove)
     {
         //TODO: implementation pending
     }
