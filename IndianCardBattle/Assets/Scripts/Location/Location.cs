@@ -5,17 +5,14 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
     private bool isUnlocked;
     private int turnUnlockNumber;
     private LocationID locationID;
-    private TurnManager turnManager;
     public ILocationScoreManager LocationScoreManager { get; set; }
     public ILocationViewManager LocationViewManager { get; set; }
     public ILocationCardPlacementManager LocationCardPlacementManager { get; set; }
 
-    public void InitLocation(TurnManager turnManager,LocationID locationID,int turnUnlockNumber,int numberOfPlayers)
+    public void InitLocation(LocationID locationID,int turnUnlockNumber,int numberOfPlayers)
     {
-        this.turnManager = turnManager;
         this.locationID = locationID;
         this.turnUnlockNumber = turnUnlockNumber;
-        OnTurnUpdate();
         
         //Score manager
         LocationScoreManager = new LocationScoreManager(numberOfPlayers);
@@ -33,12 +30,17 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
         
         //Event subscription
         CustomEventManager.Instance.AddListener(TurnEvents.UPDATE_TURN_COST,OnTurnUpdate);
+        
+        OnTurnUpdate(1);
     }
 
     public void OnTurnUpdate(params object []args)
     {
-        if (CheckIfLocationUnlocked(turnManager.TurnCounter))
+        if (CheckIfLocationUnlocked((int)args[0]))
             OnIslandUnlocked();
+        
+        LocationViewManager.UpdateScore(true,LocationScoreManager.GetScoreForPlayer(0));
+        LocationViewManager.UpdateScore(false,LocationScoreManager.GetScoreForPlayer(1));
     }
 
     private bool CheckIfLocationUnlocked(int turnNumber)
@@ -73,9 +75,7 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
     {
         LocationCardPlacementManager.AddCardToLocation(playerIndex,card);
         LocationScoreManager.AddScoreForPlayer(card.CardStatsManager.GetCardPower(),playerIndex);
-        
-        //TODO: update player index check logic
-        LocationViewManager.UpdateScore(playerIndex == 0,LocationScoreManager.GetScoreForPlayer(playerIndex));
     }
+    
     
 }

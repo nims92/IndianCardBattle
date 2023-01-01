@@ -62,7 +62,7 @@ public class PlayerManager : MonoBehaviour
         
         CustomEventManager.Instance.Invoke(UIEvents.OPPONENT_PROFILE_INITIALIZED,OpponentPlayer.Profile.GetPlayerName());
     }
-
+    
     private void OnTurnUpdated(params object[] args)
     {
         int currentPlayerTurnIndex = (int)args[0];

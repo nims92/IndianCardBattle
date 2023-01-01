@@ -11,7 +11,7 @@ public class Player
     
     public PlayerProfile Profile => playerProfile;
     public CardManager PlayerCardManager => playerCardManager;
-
+    
     public Player(string playerName,int playerID,PlayerInputType inputType,
         IObjectSpawner objectSpawner,
         Deck deck,Transform deckTransform,Transform handTransform, 
@@ -19,7 +19,7 @@ public class Player
     {
         playerProfile = new PlayerProfile(playerName, playerID);
         playerCardManager = new CardManager(objectSpawner,this, deck, deckTransform, handTransform, maxCardInHand);
-        turnCostManager = new TurnCostManager();
+        turnCostManager = new TurnCostManager(inputType == PlayerInputType.Human);
     }
 
     public void OnPlayerTurnReceived()
@@ -30,16 +30,25 @@ public class Player
     public void OnPlayerTurnEnd()
     {
         //TODO add logic to disable system when turn ends
+        /*
+         * Disable input
+         */
     }
 
     public void OnCardDrawnFromDeck()
     {
-        Debug.LogError($"Card added to hand");
+        //TODO : setup player for turn
+        /*
+         * Enable input
+         */
+        MoveCardFromHandToLocation(PlayerCardManager.GetRandomCardFromHand(),
+            LocationManager.Instance.GetRandomLocation());
     }
 
     public void MoveCardFromHandToLocation(ICard card, ILocation destinationLocation)
     {
-        
+        destinationLocation.AddCardToLocation(Profile.GetPlayerID(),card);
+        playerCardManager.RemoveCardFromHand(card);
     }
     
     public void MoveCardToHandFromLocation(ICard card, ILocation currentLocation)

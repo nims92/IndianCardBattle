@@ -34,4 +34,9 @@ public class CardInHandManager : ICardHandManager
     {
         cardsInHand.Remove(cardToRemove);
     }
+
+    public ICard GetRandomCardFromHand()
+    {
+        return cardsInHand[0];
+    }
 }

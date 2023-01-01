@@ -11,7 +11,8 @@ public class ScreenManager
     {
         NONE,
         LaunchScreen,
-        InGameScreen
+        InGameScreen,
+        GameEndScreen
     };
 
     private ScreenManager instance = null;

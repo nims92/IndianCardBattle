@@ -11,6 +11,13 @@ public class CardManager
 {
     private ICardDeckManager cardDeckManager;
     private ICardHandManager cardHandManager;
+    private LocationManager locationManager;
+    
+    public LocationManager LocationManager
+    {
+        get => locationManager;
+        set => locationManager = value;
+    }
     
     public CardManager(IObjectSpawner objectSpawner,
         Player player,
@@ -19,7 +26,8 @@ public class CardManager
         cardDeckManager = new CardDeckManager(objectSpawner,deck,deckTransform);
         cardHandManager = new CardInHandManager(handTransform,maxCardInHand);
     }
-    
+
+
     public void DrawNextCard(int cost, Action callback)
     {
         if (cardHandManager.CanAddCard)
@@ -32,18 +40,14 @@ public class CardManager
             //TODO: implement logic to reset hand
         }
     }
-    
-        
 
-    /*void TestCardDrawLogic()
+    public void RemoveCardFromHand(ICard card)
     {
-        int turnCount = GameData.Instance.GameConfiguration.numberOfTurns;
-        for (int i = 0; i < turnCount; i++)
-        {
-            Card card = cardDeckManager.DrawCardFromDeck(i + 1);
-            Debug.Log($"Cost: {i+1},Drawn Card: {card} " +
-                      $"with enery {GameData.Instance.GetCardStatsByID(card.CardID).energyCost}"); ;
-        }
-    }*/
-    
+        cardHandManager.RemoveCardFromHand(card);
+    }
+
+    public ICard GetRandomCardFromHand()
+    {
+        return cardHandManager.GetRandomCardFromHand();
+    }
 }

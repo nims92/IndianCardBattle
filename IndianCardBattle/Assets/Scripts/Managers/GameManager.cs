@@ -11,21 +11,27 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameAreaLocationProvider locationProvider;
     [SerializeField] private ObjectSpawner objectSpawner;
     [SerializeField] private PlayerManager playerManager;
-    
-    private LocationManager locationManager;
+
     private TurnManager turnManager;
-    //private TurnCostManager turnCostManager;
 
     private void Start()
     {
-        turnManager = new TurnManager(Constants.NUMBER_OF_PLAYERS,GameData.Instance.GameConfiguration.numberOfTurns);
-        //turnCostManager = new TurnCostManager(GameData.Instance.GameConfiguration.energyCostIncrementWithEachTurn);
-        locationManager = new LocationManager(turnManager,objectSpawner, locationProvider.LocationParent);
         playerManager.InitPlayers(objectSpawner,locationProvider);
-        
+        turnManager = new TurnManager(Constants.NUMBER_OF_PLAYERS,GameData.Instance.GameConfiguration.numberOfTurns);
+        LocationManager.Instance.SetDependencies(objectSpawner,locationProvider.LocationParent);
         CustomEventManager.Instance.Invoke(GameFlowEvents.GAME_START_EVENT,turnManager.CurrentTurnPlayerIndex);
     }
-    
+
+    private void OnEnable()
+    {
+        CustomEventManager.Instance.AddListener(GameFlowEvents.GAME_END_EVENT,OnGameEnded);
+    }
+
+    private void OnDisable()
+    {
+        CustomEventManager.Instance.RemoveListener(GameFlowEvents.GAME_END_EVENT,OnGameEnded);
+    }
+
     /*#region Testing
     private void TestCardDrawing()
     {
@@ -43,7 +49,11 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion*/
-    
-    
+
+    private void OnGameEnded(params object [] args)
+    {
+        LocationManager.Instance.CalculateDataForGameEndScreen();
+        UISceneController.Instance.ShowUIScreen(ScreenManager.UIScreens.GameEndScreen);
+    }
     
 }

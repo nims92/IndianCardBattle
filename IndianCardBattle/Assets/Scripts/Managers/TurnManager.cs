@@ -11,16 +11,29 @@ public class TurnManager
 
     public int TurnCounter
     {
-        get => turnCounter;
-        set => turnCounter = value;
+        get
+        {
+            return turnCounter;
+        }
+        private set
+        {
+            turnCounter = value;
+            Debug.LogError($"Turn Counter {turnCounter}");
+            if(IsMoreTurnAllowed())
+                CustomEventManager.Instance.Invoke(TurnEvents.UPDATE_TURN_COST,TurnCounter);
+            else
+            {
+                Debug.LogError($"No more turns allowed");
+            }
+        }
     }
 
     public TurnManager(int totalNumberOfPlayers, int maxAllowedTurnsForGame)
     {
-        CurrentTurnPlayerIndex = 0;
-        TurnCounter = 1;
         TotalNumberOfPlayers = totalNumberOfPlayers;
         this.maxAllowedTurnsForGame = maxAllowedTurnsForGame;
+        CurrentTurnPlayerIndex = 0;
+        TurnCounter = 1;
         CustomEventManager.Instance.AddListener(UIEvents.END_TURN_BUTTON_PRESSED,UpdateTurn);
     }
 
@@ -32,15 +45,19 @@ public class TurnManager
         {
             CurrentTurnPlayerIndex = 0;
             TurnCounter++;
-            CustomEventManager.Instance.Invoke(TurnEvents.UPDATE_TURN_COST,TurnCounter);
         }
         
-        CustomEventManager.Instance.Invoke(TurnEvents.TURN_UPDATED,CurrentTurnPlayerIndex);
+        if(IsMoreTurnAllowed())
+            CustomEventManager.Instance.Invoke(TurnEvents.TURN_UPDATED,CurrentTurnPlayerIndex);
+        else
+        {
+            CustomEventManager.Instance.Invoke(GameFlowEvents.GAME_END_EVENT);
+        }
     }
     
     public bool IsMoreTurnAllowed()
     {
-        if (TurnCounter == maxAllowedTurnsForGame)
+        if (TurnCounter > maxAllowedTurnsForGame)
             return false;
 
         return true;

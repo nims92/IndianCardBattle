@@ -28,6 +28,11 @@ public class CustomEventManager
         eventDictionary = new Dictionary<string, List<Listener>>();
     }
 
+    public void ClearAllListenersForAllEvents()
+    {
+        eventDictionary.Clear();
+    }
+
     public void AddListener(string e, Listener listener)
     {
 
