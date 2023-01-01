@@ -18,7 +18,7 @@ public class Player
         int maxCardInHand)
     {
         playerProfile = new PlayerProfile(playerName, playerID);
-        playerCardManager = new CardManager(objectSpawner,this, deck, deckTransform, handTransform, maxCardInHand);
+        playerCardManager = new CardManager(objectSpawner, deck, deckTransform, handTransform, maxCardInHand);
         turnCostManager = new TurnCostManager(inputType == PlayerInputType.Human);
     }
 
@@ -33,6 +33,7 @@ public class Player
         /*
          * Disable input
          */
+        
     }
 
     public void OnCardDrawnFromDeck()
@@ -41,6 +42,7 @@ public class Player
         /*
          * Enable input
          */
+        UpdateCardInHandState();
         MoveCardFromHandToLocation(PlayerCardManager.GetRandomCardFromHand(),
             LocationManager.Instance.GetRandomLocation());
     }
@@ -54,5 +56,10 @@ public class Player
     public void MoveCardToHandFromLocation(ICard card, ILocation currentLocation)
     {
         
+    }
+
+    public void UpdateCardInHandState()
+    {
+        PlayerCardManager.UpdateCardActiveState(turnCostManager.CurrentCost);
     }
 }

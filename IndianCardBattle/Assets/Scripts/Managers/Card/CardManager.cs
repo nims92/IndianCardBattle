@@ -1,26 +1,12 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections.LowLevel.Unsafe;
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
-using Random = UnityEngine.Random;
 
 public class CardManager
 {
     private ICardDeckManager cardDeckManager;
     private ICardHandManager cardHandManager;
-    private LocationManager locationManager;
-    
-    public LocationManager LocationManager
-    {
-        get => locationManager;
-        set => locationManager = value;
-    }
-    
+
     public CardManager(IObjectSpawner objectSpawner,
-        Player player,
         Deck deck,Transform deckTransform, Transform handTransform, int maxCardInHand)
     {
         cardDeckManager = new CardDeckManager(objectSpawner,deck,deckTransform);
@@ -49,5 +35,10 @@ public class CardManager
     public ICard GetRandomCardFromHand()
     {
         return cardHandManager.GetRandomCardFromHand();
+    }
+
+    public void UpdateCardActiveState(int currentCost)
+    {
+        cardHandManager.UpdateCardsInHandActiveState(currentCost);
     }
 }

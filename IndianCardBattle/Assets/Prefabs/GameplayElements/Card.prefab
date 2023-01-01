@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 4682365555719166217}
   - component: {fileID: 4682365555719166214}
   - component: {fileID: 4682365555719166219}
+  - component: {fileID: 524552889404409886}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -163,6 +164,19 @@ MonoBehaviour:
   cardNameText: {fileID: 4682365556626801878}
   costText: {fileID: 5007719230350876268}
   powerText: {fileID: 5007719230432503007}
+  canvasGroup: {fileID: 524552889404409886}
+--- !u!225 &524552889404409886
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4682365555719166212}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &4682365556129765552
 GameObject:
   m_ObjectHideFlags: 0

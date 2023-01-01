@@ -39,4 +39,17 @@ public class CardInHandManager : ICardHandManager
     {
         return cardsInHand[0];
     }
+
+    public void UpdateCardsInHandActiveState(int currentCost)
+    {
+        foreach (var card in cardsInHand)
+        {
+            if (card.CardStatsManager.GetCardCost()<= currentCost)
+                card.CardViewManager.SetCardActive(true);
+            else
+            {
+                card.CardViewManager.SetCardActive(false);
+            }
+        }
+    }
 }

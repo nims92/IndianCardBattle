@@ -90,11 +90,6 @@ public class LocationManager : MonoBehaviour,ILocationManager
       };
    }
 
-   public void AddCardToLocation(int playerIndex, Location location, ICard card)
-   {
-      location.AddCardToLocation(playerIndex, card);
-   }
-
    //TODO remove this code
    public ILocation GetRandomLocation()
    {
