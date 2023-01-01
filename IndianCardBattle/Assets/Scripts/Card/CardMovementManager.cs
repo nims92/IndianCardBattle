@@ -4,7 +4,7 @@ using UnityEngine;
 public class CardMovementManager : ICardMovementManager
 {
     private Transform cardTransform;
-    private float movementTime = 1f;
+    private float movementTime = 0.25f;
     private ICardMovementManager cardMovementManagerImplementation;
 
     public CardMovementManager(Transform cardTransform)
@@ -17,9 +17,10 @@ public class CardMovementManager : ICardMovementManager
         LeanTween.move(cardTransform.gameObject, targetPosition, movementTime);
     }
     
-    public void MoveToLocalPosition(Vector3 targetPosition)
+    public void MoveToLocalPosition(Vector3 targetPosition,Action callback)
     {
-        LeanTween.moveLocal(cardTransform.gameObject, targetPosition, movementTime);
+        LeanTween.moveLocal(cardTransform.gameObject, targetPosition, movementTime)
+            .setOnComplete(callback);
     }
     
     public void ChangeScaleTo(Vector3 newScale)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
@@ -20,11 +21,11 @@ public class CardInHandManager : ICardHandManager
         horizontalLayoutHandler = new CardHorizontalLayoutHandler(selfTransform,16f,-30f);
     }
     
-    public void AddCardToHand(ICard cardToAdd)
+    public void AddCardToHand(ICard cardToAdd, Action callback)
     {
         cardToAdd.CardMovementManager.ChangeParent(selfTransform);
         Vector3 targetPos = horizontalLayoutHandler.GetCardPositionForIndex(cardsInHand.Count);
-        cardToAdd.CardMovementManager.MoveToLocalPosition(targetPos);
+        cardToAdd.CardMovementManager.MoveToLocalPosition(targetPos, callback);
         cardToAdd.CardStateManager.SetCardState(CardState.Hand);
         cardsInHand.Add(cardToAdd);
     }
@@ -32,11 +33,5 @@ public class CardInHandManager : ICardHandManager
     public void RemoveCardFromHand(ICard cardToRemove)
     {
         cardsInHand.Remove(cardToRemove);
-    }
-    
-    //TODO remove this code
-    public ICard GetFirstCard()
-    {
-        return cardsInHand[0];
     }
 }

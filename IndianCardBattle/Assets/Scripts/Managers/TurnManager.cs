@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class TurnManager
 {
     private int currentTurnPlayerIndex;
@@ -15,20 +17,25 @@ public class TurnManager
 
     public TurnManager(int totalNumberOfPlayers, int maxAllowedTurnsForGame)
     {
-        CurrentTurnPlayerIndex = 1;
+        CurrentTurnPlayerIndex = 0;
+        TurnCounter = 1;
         TotalNumberOfPlayers = totalNumberOfPlayers;
         this.maxAllowedTurnsForGame = maxAllowedTurnsForGame;
+        CustomEventManager.Instance.AddListener(UIEvents.END_TURN_BUTTON_PRESSED,UpdateTurn);
     }
 
-    public void UpdateTurn()
+    public void UpdateTurn(params object [] args)
     {
-        TurnCounter++;
         CurrentTurnPlayerIndex++;
-
+        
         if (CurrentTurnPlayerIndex == totalNumberOfPlayers)
+        {
             CurrentTurnPlayerIndex = 0;
-
-        //TODO: fire event of turn updated
+            TurnCounter++;
+            CustomEventManager.Instance.Invoke(TurnEvents.UPDATE_TURN_COST,TurnCounter);
+        }
+        
+        CustomEventManager.Instance.Invoke(TurnEvents.TURN_UPDATED,CurrentTurnPlayerIndex);
     }
     
     public bool IsMoreTurnAllowed()

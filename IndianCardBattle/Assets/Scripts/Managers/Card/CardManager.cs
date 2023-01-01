@@ -13,25 +13,27 @@ public class CardManager
     private ICardHandManager cardHandManager;
     
     public CardManager(IObjectSpawner objectSpawner,
+        Player player,
         Deck deck,Transform deckTransform, Transform handTransform, int maxCardInHand)
     {
         cardDeckManager = new CardDeckManager(objectSpawner,deck,deckTransform);
         cardHandManager = new CardInHandManager(handTransform,maxCardInHand);
     }
     
-    public void DrawNextCard()
+    public void DrawNextCard(int cost, Action callback)
     {
         if (cardHandManager.CanAddCard)
         {
-            int cost = Random.Range(1, 6);
             Card card = cardDeckManager.DrawCardFromDeck(cost);
-            cardHandManager.AddCardToHand(card);
+            cardHandManager.AddCardToHand(card, callback);
         }
         else
         {
             //TODO: implement logic to reset hand
         }
     }
+    
+        
 
     /*void TestCardDrawLogic()
     {
@@ -44,9 +46,4 @@ public class CardManager
         }
     }*/
     
-    //TODO remove this code
-    public ICard GetFirstCard()
-    {
-        return cardHandManager.GetFirstCard();
-    }
 }

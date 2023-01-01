@@ -4,16 +4,11 @@ using System.Collections.Generic;
 using UnityEngine.Events;
 
 public delegate void Listener(params object[] args);
+
 public class CustomEventManager
 {
-    public enum CustomEvents
-    {
-        Test1,
-        Test2
-    }
-
     private static CustomEventManager instance;
-    private Dictionary<CustomEvents, List<Listener>> eventDictionary;
+    private Dictionary<string, List<Listener>> eventDictionary;
 
     public static CustomEventManager Instance
     {
@@ -30,10 +25,10 @@ public class CustomEventManager
 
     void Init()
     {
-        eventDictionary = new Dictionary<CustomEvents, List<Listener>>();
+        eventDictionary = new Dictionary<string, List<Listener>>();
     }
 
-    public void AddListener(CustomEvents e, Listener listener)
+    public void AddListener(string e, Listener listener)
     {
 
         if (eventDictionary.ContainsKey(e))
@@ -46,7 +41,7 @@ public class CustomEventManager
         }
     }
 
-    public void RemoveAllListener(CustomEvents e)
+    public void RemoveAllListener(string e)
     {
         List<Listener> l = null;
         if (eventDictionary.TryGetValue(e, out l))
@@ -61,7 +56,7 @@ public class CustomEventManager
     /// </summary>
     /// <param name="e"></param>
     /// <param name="listener"></param>
-    public void RemoveListener(CustomEvents e, Listener listener)
+    public void RemoveListener(string e, Listener listener)
     {
         if (eventDictionary.ContainsKey(e))
         {
@@ -72,10 +67,11 @@ public class CustomEventManager
         }
     }
 
-    public void Invoke(CustomEvents e, params object[] args)
+    public void Invoke(string e, params object[] args)
     {
         if (eventDictionary.ContainsKey(e))
         {
+            Debug.Log($"Event fired: {e}");
             int listenersCount = eventDictionary[e].Count;
             for (int i = 0; i < listenersCount; i++)
                 eventDictionary[e][i](args);

@@ -14,19 +14,19 @@ public class GameManager : MonoBehaviour
     
     private LocationManager locationManager;
     private TurnManager turnManager;
-    private TurnCostManager turnCostManager;
+    //private TurnCostManager turnCostManager;
 
     private void Start()
     {
-        locationManager = new LocationManager(objectSpawner, locationProvider.LocationParent);
-        turnManager = new TurnManager(2,GameData.Instance.GameConfiguration.numberOfTurns);
-        turnCostManager = new TurnCostManager(GameData.Instance.GameConfiguration.energyCostIncrementWithEachTurn);
+        turnManager = new TurnManager(Constants.NUMBER_OF_PLAYERS,GameData.Instance.GameConfiguration.numberOfTurns);
+        //turnCostManager = new TurnCostManager(GameData.Instance.GameConfiguration.energyCostIncrementWithEachTurn);
+        locationManager = new LocationManager(turnManager,objectSpawner, locationProvider.LocationParent);
         playerManager.InitPlayers(objectSpawner,locationProvider);
+        
+        CustomEventManager.Instance.Invoke(GameFlowEvents.GAME_START_EVENT,turnManager.CurrentTurnPlayerIndex);
     }
     
-
     /*#region Testing
-    //TODO: remove this code
     private void TestCardDrawing()
     {
         cardManager.DrawNextCard();
@@ -43,5 +43,7 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion*/
+    
+    
     
 }

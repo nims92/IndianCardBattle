@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -19,28 +20,56 @@ public class PlayerManager : MonoBehaviour
         set => opponentPlayer = value;
     }
 
-    public void InitPlayers(IObjectSpawner objectSpawner,GameAreaLocationProvider areaLocationProvider)
+    #region Monobehaviour
+    private void OnEnable()
+    {
+        CustomEventManager.Instance.AddListener(GameFlowEvents.GAME_START_EVENT,OnTurnUpdated);
+        CustomEventManager.Instance.AddListener(TurnEvents.TURN_UPDATED,OnTurnUpdated);
+    }
+    private void OnDisable()
+    {
+        CustomEventManager.Instance.RemoveListener(GameFlowEvents.GAME_START_EVENT,OnTurnUpdated);
+        CustomEventManager.Instance.RemoveListener(TurnEvents.TURN_UPDATED,OnTurnUpdated);
+    }
+    #endregion
+
+    public void InitPlayers(IObjectSpawner objectSpawner,
+        GameAreaLocationProvider areaLocationProvider)
     {
         //Init self player
         SelfPlayer = new Player(selfPlayerConfiguration.name,
             0,
+            selfPlayerConfiguration.playerInputType,
             objectSpawner,
             selfPlayerConfiguration.playerDeck,
             areaLocationProvider.PlayerCardDeckParent,
             areaLocationProvider.PlayerCardHandParent,
             GameData.Instance.GameConfiguration.maxCardInHand
             );
-
+        
+        CustomEventManager.Instance.Invoke(UIEvents.PLAYER_PROFILE_INITIALIZED,SelfPlayer.Profile.GetPlayerName());
+        
         //Init opponent player
         OpponentPlayer = new Player(opponentPlayerConfiguration.name,
             1,
+            opponentPlayerConfiguration.playerInputType,
             objectSpawner,
             opponentPlayerConfiguration.playerDeck,
             areaLocationProvider.OpponentCardDeckParent,
             areaLocationProvider.OpponentCardHandParent,
             GameData.Instance.GameConfiguration.maxCardInHand
         );
+        
+        CustomEventManager.Instance.Invoke(UIEvents.OPPONENT_PROFILE_INITIALIZED,OpponentPlayer.Profile.GetPlayerName());
     }
-    
-    
+
+    private void OnTurnUpdated(params object[] args)
+    {
+        int currentPlayerTurnIndex = (int)args[0];
+        
+        if(currentPlayerTurnIndex == 0)
+            selfPlayer.OnPlayerTurnReceived();
+        else
+            opponentPlayer.OnPlayerTurnReceived();
+    }
 }

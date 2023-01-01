@@ -8,9 +8,11 @@ public class LocationManager : ILocationManager
    private List<Location> locations;
    private Transform selfTransform;
    private IObjectSpawner objectSpawner;
+   private TurnManager turnManager;
 
-   public LocationManager(IObjectSpawner objectSpawner, Transform transform)
+   public LocationManager(TurnManager turnManager,IObjectSpawner objectSpawner, Transform transform)
    {
+      this.turnManager = turnManager;
       this.objectSpawner = objectSpawner;
       selfTransform = transform;
       locations = new List<Location>();
@@ -40,7 +42,7 @@ public class LocationManager : ILocationManager
          spawnPos = GameData.Instance.GetLocationSpawnPosForIndex(i);
          toSpawn = GameData.Instance.GetLocationPrefabWithID(locationID);
          toSpawn = objectSpawner.SpawnObjectOfType(toSpawn, spawnPos, Quaternion.identity, selfTransform);
-         toSpawn.InitLocation(locationID,i+1,Constants.NUMBER_OF_PLAYERS);
+         toSpawn.InitLocation(turnManager,locationID,i+1,Constants.NUMBER_OF_PLAYERS);
          locations.Add(toSpawn);
       }
    }
@@ -61,11 +63,5 @@ public class LocationManager : ILocationManager
    public void AddCardToLocation(int playerIndex, Location location, ICard card)
    {
       location.AddCardToLocation(playerIndex, card);
-   }
-   
-   //TODO remove this code
-   public Location GetFirstLocation()
-   {
-      return locations[0];
    }
 }

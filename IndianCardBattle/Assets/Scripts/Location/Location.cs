@@ -5,15 +5,17 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
     private bool isUnlocked;
     private int turnUnlockNumber;
     private LocationID locationID;
+    private TurnManager turnManager;
     public ILocationScoreManager LocationScoreManager { get; set; }
     public ILocationViewManager LocationViewManager { get; set; }
     public ILocationCardPlacementManager LocationCardPlacementManager { get; set; }
 
-    public void InitLocation(LocationID locationID,int turnUnlockNumber,int numberOfPlayers)
+    public void InitLocation(TurnManager turnManager,LocationID locationID,int turnUnlockNumber,int numberOfPlayers)
     {
+        this.turnManager = turnManager;
         this.locationID = locationID;
         this.turnUnlockNumber = turnUnlockNumber;
-        SetUnlocked(CheckIfLocationUnlocked(1));
+        OnTurnUpdate();
         
         //Score manager
         LocationScoreManager = new LocationScoreManager(numberOfPlayers);
@@ -28,12 +30,14 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
         //Card placement manager
         LocationCardPlacementManager = GetComponent<LocationCardPlacementManager>();
         LocationCardPlacementManager.Init();
+        
+        //Event subscription
+        CustomEventManager.Instance.AddListener(TurnEvents.UPDATE_TURN_COST,OnTurnUpdate);
     }
 
-    public void OnTurnUpdate(int turnNumber)
+    public void OnTurnUpdate(params object []args)
     {
-        //TODO: turn updated
-        if (CheckIfLocationUnlocked(turnNumber))
+        if (CheckIfLocationUnlocked(turnManager.TurnCounter))
             OnIslandUnlocked();
     }
 
@@ -46,8 +50,9 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
     
     private void OnIslandUnlocked()
     {
-        //TODO: implementation pending
         SetUnlocked(true);
+        //TODO: show animation
+        Debug.Log($"Location Unlocked: {locationID}");
     }
 
     #region IUnlockable implementation

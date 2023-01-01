@@ -7,7 +7,7 @@ public class PlayerProfileView : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI playerName;
 
-    public void SetName(string name)
+    public void Init(string name)
     {
         playerName.text = name;
     }

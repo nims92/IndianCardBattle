@@ -11,4 +11,8 @@ public static class Constants
     //Gameplay
     public const int NUMBER_OF_LOCATIONS = 3;
     public const int NUMBER_OF_PLAYERS = 2;
+    
+    //UI strings
+    public const string PLAYER_TURN_BUTTON_TEXT = "End Turn";
+    public const string OPPONENT_TURN_BUTTON_TEXT = "Waiting...";
 }

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2192e8f32d6b4e408e938316c01b6a0b, type: 3}
   m_Name: AIPlayer
   m_EditorClassIdentifier: 
-  name: AI
+  name: BoT
   playerInputType: 1
   playerDeck: {fileID: 11400000, guid: 6f84bbf30a1d440fa8accece594b62ca, type: 2}

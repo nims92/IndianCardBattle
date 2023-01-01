@@ -4,7 +4,7 @@ public interface ILocation
     public ILocationViewManager LocationViewManager { get; set; }
     public ILocationCardPlacementManager LocationCardPlacementManager { get; set; }
     
-    public void InitLocation(LocationID locationID,int turnUnlockNumber,int numberOfPlayers);
+    public void InitLocation(TurnManager turnManager,LocationID locationID,int turnUnlockNumber,int numberOfPlayers);
 }
 
 

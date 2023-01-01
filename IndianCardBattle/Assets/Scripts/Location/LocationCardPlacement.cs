@@ -31,7 +31,7 @@ public class LocationCardPlacement :MonoBehaviour, ILocationCardPlacement
             return;
         
         card.CardMovementManager.ChangeParent(transform);
-        card.CardMovementManager.MoveToLocalPosition(GetNextEmptyPosition());
+        card.CardMovementManager.MoveToLocalPosition(GetNextEmptyPosition(),null);
         card.CardMovementManager.ChangeScaleTo(GameData.Instance.GetCardScaleAtLocation());
         card.CardStateManager.SetCardState(CardState.Location);
         currentCards.Add(card);
