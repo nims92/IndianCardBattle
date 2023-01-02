@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.Events;
+﻿using System.Collections.Generic;
 
 public delegate void Listener(params object[] args);
 
@@ -35,7 +32,6 @@ public class CustomEventManager
 
     public void AddListener(string e, Listener listener)
     {
-
         if (eventDictionary.ContainsKey(e))
             eventDictionary[e].Add(listener);
         else
