@@ -2,31 +2,28 @@ using UnityEngine;
 
 public class Player
 {
-    private PlayerInputType playerInputType;
-    private PlayerProfile playerProfile;
-    private CardManager playerCardManager;
-    private TurnCostManager turnCostManager;
-    private IPlayerInputManager playerInputManager;
+    private readonly TurnCostManager turnCostManager;
+    private readonly IPlayerInputManager playerInputManager;
     
-    public PlayerProfile Profile => playerProfile;
-    public CardManager PlayerCardManager => playerCardManager;
-    
+    public PlayerProfile Profile { get; }
+    public CardManager PlayerCardManager { get; }
+
     public Player(string playerName,int playerID,PlayerInputType inputType,
         IPlayerInputManager inputManager,
         IObjectSpawner objectSpawner,
         Deck deck,Transform deckTransform,Transform handTransform, 
         int maxCardInHand)
     {
-        playerProfile = new PlayerProfile(playerName, playerID);
-        playerCardManager = new CardManager(objectSpawner, deck, deckTransform, handTransform, maxCardInHand);
+        Profile = new PlayerProfile(playerName, playerID);
+        PlayerCardManager = new CardManager(objectSpawner, deck, deckTransform, handTransform, maxCardInHand);
         turnCostManager = new TurnCostManager(inputType == PlayerInputType.Human);
-        this.playerInputManager = inputManager;
+        playerInputManager = inputManager;
         playerInputManager.SetupPlayerInput(this);
     }
 
     public void OnPlayerTurnReceived()
     {
-        playerCardManager.DrawNextCard(turnCostManager.CurrentCost,OnCardDrawnFromDeck);
+        PlayerCardManager.DrawNextCard(turnCostManager.CurrentCost,OnCardDrawnFromDeck);
     }
 
     public void OnPlayerTurnEnd()
@@ -34,16 +31,10 @@ public class Player
         playerInputManager.OnPlayerTurnEnded();
     }
 
-    public void OnCardDrawnFromDeck()
-    {
-        UpdateCardInHandState();
-        playerInputManager.OnPlayerTurnReceived();
-    }
-
     public void MoveCardFromHandToLocation(ICard card, ILocation destinationLocation)
     {
         destinationLocation.AddCardToLocation(Profile.GetPlayerID(),card);
-        playerCardManager.RemoveCardFromHand(card);
+        PlayerCardManager.RemoveCardFromHand(card);
         turnCostManager.UpdateTurnCost(-card.CardStatsManager.GetCardCost());
         UpdateCardInHandState();
     }
@@ -51,7 +42,7 @@ public class Player
     public void MoveCardToHandFromLocation(ICard card, ILocation currentLocation)
     {
         currentLocation.RemoveCardFromLocation(Profile.GetPlayerID(),card);
-        playerCardManager.AddCardToHand(card,null);
+        PlayerCardManager.AddCardToHand(card,null);
         turnCostManager.UpdateTurnCost(card.CardStatsManager.GetCardCost());
         UpdateCardInHandState();
     }
@@ -67,8 +58,14 @@ public class Player
         newLocation.AddCardToLocation(Profile.GetPlayerID(), card);
     }
 
-    public void UpdateCardInHandState()
+    private void UpdateCardInHandState()
     {
         PlayerCardManager.UpdateCardActiveState(turnCostManager.CurrentCost);
+    }
+    
+    private void OnCardDrawnFromDeck()
+    {
+        UpdateCardInHandState();
+        playerInputManager.OnPlayerTurnReceived();
     }
 }

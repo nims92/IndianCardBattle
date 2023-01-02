@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AIPlayerInputManager : MonoBehaviour,IPlayerInputManager
@@ -39,6 +38,4 @@ public class AIPlayerInputManager : MonoBehaviour,IPlayerInputManager
     {
         
     }
-
-    
 }

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -6,19 +5,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private PlayerConfiguration selfPlayerConfiguration;
     [SerializeField] private PlayerConfiguration opponentPlayerConfiguration;
 
-    private Player selfPlayer;
-    private Player opponentPlayer;
-
-    public Player SelfPlayer
-    {
-        get => selfPlayer;
-        set => selfPlayer = value;
-    }
-    public Player OpponentPlayer
-    {
-        get => opponentPlayer;
-        set => opponentPlayer = value;
-    }
+    private Player SelfPlayer { get; set; }
+    private Player OpponentPlayer { get; set; }
 
     #region Monobehaviour
     private void OnEnable()
@@ -71,13 +59,13 @@ public class PlayerManager : MonoBehaviour
 
         if (currentPlayerTurnIndex == 0)
         {
-            selfPlayer.OnPlayerTurnReceived();
-            opponentPlayer.OnPlayerTurnEnd();
+            SelfPlayer.OnPlayerTurnReceived();
+            OpponentPlayer.OnPlayerTurnEnd();
         }
         else
         {
-            opponentPlayer.OnPlayerTurnReceived();
-            selfPlayer.OnPlayerTurnEnd();
+            OpponentPlayer.OnPlayerTurnReceived();
+            SelfPlayer.OnPlayerTurnEnd();
         }
             
     }
