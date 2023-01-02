@@ -8,4 +8,5 @@ public interface ILocationViewManager
     void UpdateLocationName(string locationName);
     void UpdateLocationBgColor(Color newColor);
     void OnLocationUnlocked();
+    void OnPlayerScoresUpdated(int playerScore,int opponentScore);
 }

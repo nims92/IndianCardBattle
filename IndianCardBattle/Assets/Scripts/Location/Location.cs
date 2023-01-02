@@ -43,6 +43,7 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
         
         LocationViewManager.UpdateScore(true,LocationScoreManager.GetScoreForPlayer(0));
         LocationViewManager.UpdateScore(false,LocationScoreManager.GetScoreForPlayer(1));
+        LocationViewManager.OnPlayerScoresUpdated(LocationScoreManager.GetScoreForPlayer(0),LocationScoreManager.GetScoreForPlayer(1));
     }
 
     public void OnTurnUpdate(params object[] args)

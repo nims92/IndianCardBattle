@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class LocationViewManager : MonoBehaviour, ILocationViewManager
 {
     #region Scene references
+    [SerializeField] private Image playerScoreImage;
+    [SerializeField] private Image opponentScoreImage;
     [SerializeField] private TextMeshProUGUI playerScoreText;
     [SerializeField] private TextMeshProUGUI opponentScoreText;
     [SerializeField] private TextMeshProUGUI locationDescriptionText;
@@ -58,5 +60,34 @@ public class LocationViewManager : MonoBehaviour, ILocationViewManager
     public void OnLocationUnlocked()
     {
         lockIcon.SetActive(false);
+    }
+
+    public void OnPlayerScoresUpdated(int playerScore, int opponentScore)
+    {
+        if (playerScore > opponentScore)
+        {
+            EnableHighScoreHighlight(0, true);
+            EnableHighScoreHighlight(1, false);
+        }
+        else if (playerScore < opponentScore)
+        {
+            EnableHighScoreHighlight(1, true);
+            EnableHighScoreHighlight(0, false);
+        }
+        else
+        {
+            EnableHighScoreHighlight(0, false);
+            EnableHighScoreHighlight(1, false);
+        }
+    }
+
+    private void EnableHighScoreHighlight(int playerIndex, bool value)
+    {
+        Color newColor = value ? Color.green : Color.white;
+        
+        if (playerIndex == 0)
+            playerScoreImage.color = newColor;
+        else
+            opponentScoreImage.color = newColor;
     }
 }
