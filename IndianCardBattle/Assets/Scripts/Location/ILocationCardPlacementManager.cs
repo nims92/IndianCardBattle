@@ -5,4 +5,5 @@ public interface ILocationCardPlacementManager
     public void RemoveCardFromLocation(int playerIndex,ICard careToRemove);
 
     void LockCardsAtAllPlacement();
+    bool IsCardPlacementAreaFullForPlayer(int playerIndex);
 }

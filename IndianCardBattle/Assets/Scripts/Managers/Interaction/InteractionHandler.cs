@@ -11,7 +11,6 @@ public class InteractionHandler : MonoBehaviour
     public LayerMask locationLayerMask;
     public LayerMask cardMovementLayerMask;
     
-    
     public bool InteractionEnabled { get; set; }
     
     #region MonoBehaviour
@@ -45,7 +44,6 @@ public class InteractionHandler : MonoBehaviour
             {
                 currentClickedCard = cardClicked;
                 cardStartPosition = currentClickedCard.GetCardTransform().position;
-                Debug.LogError($"Card clicked:{cardClicked.CardID}");
             }
         }
     }
@@ -75,15 +73,23 @@ public class InteractionHandler : MonoBehaviour
             {
                 ILocation location = hit.transform.gameObject.GetComponent<ILocation>();
                 
-                //move from one location to other location
-                if (currentClickedCard.CardStateManager.GetCardCurrentState() == CardState.Location)
+                //Check if location has empty space
+                if (location.IsLocationFullForPlayer(player.Profile.GetPlayerID()))
                 {
-                    player.MoveCardToNewLocation(currentClickedCard,currentClickedCard.GetCurrentLocation(),location);
+                    player.MoveCardToHand(currentClickedCard,cardStartPosition);
                 }
-                //move from hand to location
                 else
                 {
-                    player.MoveCardFromHandToLocation(currentClickedCard,location);
+                    //move from one location to other location
+                    if (currentClickedCard.CardStateManager.GetCardCurrentState() == CardState.Location)
+                    {
+                        player.MoveCardToNewLocation(currentClickedCard,currentClickedCard.GetCurrentLocation(),location);
+                    }
+                    //move from hand to location
+                    else
+                    {
+                        player.MoveCardFromHandToLocation(currentClickedCard,location);
+                    }
                 }
             }
             //move card from location to hand
@@ -101,14 +107,3 @@ public class InteractionHandler : MonoBehaviour
         }
     }
 }
-
-
-/*
- TODO:
- - location to location movement
- - location to hand movement
- - lock card at location when player turn ends
- - no input during oppnent's turn
- - hand card auto arrangement
- - AI basic movement
- */

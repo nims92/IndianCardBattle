@@ -18,13 +18,8 @@ public class TurnManager
         private set
         {
             turnCounter = value;
-            Debug.LogError($"Turn Counter {turnCounter}");
             if(IsMoreTurnAllowed())
                 CustomEventManager.Instance.Invoke(TurnEvents.UPDATE_TURN_COST,TurnCounter);
-            else
-            {
-                Debug.LogError($"No more turns allowed");
-            }
         }
     }
 

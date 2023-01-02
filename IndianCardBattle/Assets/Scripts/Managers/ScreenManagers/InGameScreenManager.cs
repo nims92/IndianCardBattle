@@ -13,11 +13,6 @@ public class InGameScreenManager : UIBase
     [SerializeField] private PlayerProfileView selfPlayerProfileView;
     [SerializeField] private PlayerProfileView opponentPlayerProfileView;
     [SerializeField] private TextMeshProUGUI costCounterText;
-
-    //TODO remove this later
-    [SerializeField] private Button AIturnButton;
-    [SerializeField] private TextMeshProUGUI AIturnButtonText;
-
     
     #region Monobehaviour callbacks
 
@@ -63,16 +58,12 @@ public class InGameScreenManager : UIBase
             turnButton.interactable = true;
             turnButtonText.text = Constants.PLAYER_TURN_BUTTON_TEXT;
 
-            AIturnButton.interactable = false;
-            AIturnButtonText.text = Constants.OPPONENT_TURN_BUTTON_TEXT;
         }
         else
         {
             turnButton.interactable = false;
             turnButtonText.text = Constants.OPPONENT_TURN_BUTTON_TEXT;
-            
-            AIturnButton.interactable = true;
-            AIturnButtonText.text = Constants.PLAYER_TURN_BUTTON_TEXT;
+
         }
     }
 
@@ -80,10 +71,4 @@ public class InGameScreenManager : UIBase
     {
         CustomEventManager.Instance.Invoke(UIEvents.END_TURN_BUTTON_PRESSED);
     }
-    
-    //TODO remove this 
-    public void OnAIEndTurnButtonPressed()
-    {
-        CustomEventManager.Instance.Invoke(UIEvents.END_TURN_BUTTON_PRESSED);
-    } 
 }

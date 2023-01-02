@@ -7,4 +7,5 @@ public interface ILocationViewManager
     void UpdateLocationDescriptionText(string descriptionText);
     void UpdateLocationName(string locationName);
     void UpdateLocationBgColor(Color newColor);
+    void OnLocationUnlocked();
 }

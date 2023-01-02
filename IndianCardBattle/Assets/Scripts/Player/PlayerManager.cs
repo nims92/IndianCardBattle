@@ -54,7 +54,7 @@ public class PlayerManager : MonoBehaviour
         OpponentPlayer = new Player(opponentPlayerConfiguration.name,
             1,
             opponentPlayerConfiguration.playerInputType,
-            new AIPlayerInputManager(),
+            GetComponentInChildren<AIPlayerInputManager>(),
             objectSpawner,
             opponentPlayerConfiguration.playerDeck,
             areaLocationProvider.OpponentCardDeckParent,

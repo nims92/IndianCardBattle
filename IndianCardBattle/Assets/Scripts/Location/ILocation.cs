@@ -9,6 +9,8 @@ public interface ILocation
     void AddCardToLocation(int playerIndex, ICard card);
 
     void RemoveCardFromLocation(int playerIndex, ICard card);
+
+    bool IsLocationFullForPlayer(int playerIndex);
 }
 
 

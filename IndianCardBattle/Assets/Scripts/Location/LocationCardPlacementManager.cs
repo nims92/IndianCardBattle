@@ -39,4 +39,9 @@ public class LocationCardPlacementManager :MonoBehaviour, ILocationCardPlacement
 
         return true;
     }
+
+    public bool IsCardPlacementAreaFullForPlayer(int playerIndex)
+    {
+        return cardPlacements[playerIndex].IsPlacementAreaFull();
+    }
 }

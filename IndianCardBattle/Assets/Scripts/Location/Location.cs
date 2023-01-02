@@ -59,8 +59,6 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
     private void OnIslandUnlocked()
     {
         SetUnlocked(true);
-        //TODO: show animation
-        Debug.Log($"Location Unlocked: {LocationID}");
     }
 
     #region IUnlockable implementation
@@ -73,6 +71,7 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
     public void SetUnlocked(bool value)
     {
         isUnlocked = value;
+        LocationViewManager.OnLocationUnlocked();
     }
 
     #endregion
@@ -89,5 +88,10 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
         LocationCardPlacementManager.RemoveCardFromLocation(playerIndex,card);
         LocationScoreManager.DeductScoreForPlayer(card.CardStatsManager.GetCardPower(),playerIndex);
         card.SetCurrentLocation(null);
+    }
+
+    public bool IsLocationFullForPlayer(int playerIndex)
+    {
+        return LocationCardPlacementManager.IsCardPlacementAreaFullForPlayer(playerIndex);
     }
 }

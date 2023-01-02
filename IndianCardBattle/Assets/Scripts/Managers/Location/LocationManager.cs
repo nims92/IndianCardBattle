@@ -89,11 +89,18 @@ public class LocationManager : MonoBehaviour,ILocationManager
          data[2].locationID
       };
    }
-
-   //TODO remove this code
-   public ILocation GetRandomLocation()
+   
+   public ILocation GetRandomLocation(int playerIndex)
    {
-      return locations[Random.Range(0,locations.Count)];
+      List<ILocation> validLocations = new List<ILocation>();
+
+      foreach (var location in locations)
+      {
+         if(!location.IsLocationFullForPlayer(playerIndex))
+            validLocations.Add(location);
+      }
+
+      return validLocations[Random.Range(0, validLocations.Count)];
    }
 
    public void CalculateDataForGameEndScreen()

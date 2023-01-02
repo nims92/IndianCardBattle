@@ -7,7 +7,6 @@ public class Player
     private CardManager playerCardManager;
     private TurnCostManager turnCostManager;
     private IPlayerInputManager playerInputManager;
-    //TODO: think about input
     
     public PlayerProfile Profile => playerProfile;
     public CardManager PlayerCardManager => playerCardManager;
@@ -32,20 +31,13 @@ public class Player
 
     public void OnPlayerTurnEnd()
     {
-        //Lock cards at location
         playerInputManager.OnPlayerTurnEnded();
     }
 
     public void OnCardDrawnFromDeck()
     {
-        //TODO : setup player for turn
-        /*
-         * Enable input
-         */
         UpdateCardInHandState();
         playerInputManager.OnPlayerTurnReceived();
-        /*MoveCardFromHandToLocation(PlayerCardManager.GetRandomCardFromHand(),
-            LocationManager.Instance.GetRandomLocation());*/
     }
 
     public void MoveCardFromHandToLocation(ICard card, ILocation destinationLocation)

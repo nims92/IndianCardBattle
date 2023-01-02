@@ -36,13 +36,11 @@ public class LocationCardPlacement :MonoBehaviour, ILocationCardPlacement
         card.CardStateManager.SetCardState(CardState.Location);
         currentCards.Add(card);
     }
-
     public void RemoveCard(ICard card)
     {
-        //TODO: add logic for unparenting 
         currentCards.Remove(card);
     }
-
+    
     public void LockAllPlacedCards()
     {
         foreach (var card in currentCards)

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CardInHandManager : ICardHandManager
 {
@@ -36,9 +38,18 @@ public class CardInHandManager : ICardHandManager
         UpdateCardsPositionInHand();
     }
 
-    public ICard GetRandomCardFromHand()
+    public ICard GetRandomPlaybleCardFromHand()
     {
-        return cardsInHand[0];
+        List<ICard> playableCards = cardsInHand.FindAll(card => card.IsCardActive());
+
+        if (playableCards.Count ==0)
+        {
+            return null;
+        }
+        else
+        {
+            return playableCards[Random.Range(0, playableCards.Count())];
+        }
     }
 
     public void UpdateCardsInHandActiveState(int currentCost)

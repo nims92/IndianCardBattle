@@ -37,9 +37,9 @@ public class CardManager
         cardHandManager.RemoveCardFromHand(card);
     }
 
-    public ICard GetRandomCardFromHand()
+    public ICard GetRandomPlaybleCardFromHand()
     {
-        return cardHandManager.GetRandomCardFromHand();
+        return cardHandManager.GetRandomPlaybleCardFromHand();
     }
 
     public void UpdateCardActiveState(int currentCost)

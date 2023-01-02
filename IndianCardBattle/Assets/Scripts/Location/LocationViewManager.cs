@@ -11,6 +11,7 @@ public class LocationViewManager : MonoBehaviour, ILocationViewManager
     [SerializeField] private TextMeshProUGUI locationDescriptionText;
     [SerializeField] private TextMeshProUGUI locationNameText;
     [SerializeField] private Image locationBGImage;
+    [SerializeField] private GameObject lockIcon;
     #endregion
 
     public void InitView(int playerScore,int opponentScore,string locationDescription,string locationName)
@@ -52,5 +53,10 @@ public class LocationViewManager : MonoBehaviour, ILocationViewManager
     public void UpdateLocationBgColor(Color newColor)
     {
         locationBGImage.color = newColor;
+    }
+
+    public void OnLocationUnlocked()
+    {
+        lockIcon.SetActive(false);
     }
 }

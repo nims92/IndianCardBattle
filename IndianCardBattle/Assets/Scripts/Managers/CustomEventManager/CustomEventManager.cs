@@ -76,7 +76,7 @@ public class CustomEventManager
     {
         if (eventDictionary.ContainsKey(e))
         {
-            Debug.Log($"Event fired: {e}");
+            //Debug.Log($"Event fired: {e}");
             int listenersCount = eventDictionary[e].Count;
             for (int i = 0; i < listenersCount; i++)
                 eventDictionary[e][i](args);
