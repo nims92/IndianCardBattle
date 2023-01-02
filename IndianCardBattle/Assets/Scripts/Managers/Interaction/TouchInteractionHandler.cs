@@ -10,7 +10,7 @@ public class TouchInteractionHandler: InteractionHandler
         Input.multiTouchEnabled = false;
     }
 
-    public override void InputUpdate()
+    protected override void InputUpdate()
     {
        //For Mobile Devices
         if (Input.touchCount == 1)

@@ -2,25 +2,23 @@ using UnityEngine;
 
 public class InteractionHandler : MonoBehaviour
 {
-    protected Player player;
+    private Player player;
     private Camera camera;
     private ICard currentClickedCard;
     private Vector3 cardStartPosition;
 
-    public LayerMask cardLayerMask;
-    public LayerMask locationLayerMask;
-    public LayerMask cardMovementLayerMask;
+    [SerializeField] private LayerMask cardLayerMask;
+    [SerializeField] private LayerMask locationLayerMask;
+    [SerializeField] private LayerMask cardMovementLayerMask;
     
     public bool InteractionEnabled { get; set; }
     
     #region MonoBehaviour
-    
     void Update()
     {
         if(InteractionEnabled)
             InputUpdate();
     }
-
     #endregion
 
     public virtual void InitialSetup(Player player)
@@ -29,9 +27,9 @@ public class InteractionHandler : MonoBehaviour
         camera = Camera.main;
     }
 
-    public virtual void InputUpdate() { }
+    protected virtual void InputUpdate() { }
 
-    public void OnTouchDown(Vector3 inputPosition)
+    protected void OnTouchDown(Vector3 inputPosition)
     {
         Ray ray = camera.ScreenPointToRay(inputPosition);
         
@@ -48,7 +46,7 @@ public class InteractionHandler : MonoBehaviour
         }
     }
 
-    public void OnTouchMove(Vector3 inputPosition)
+    protected void OnTouchMove(Vector3 inputPosition)
     {
         if (currentClickedCard != null)
         {
@@ -62,7 +60,7 @@ public class InteractionHandler : MonoBehaviour
         }
     }
 
-    public void OnTouchUp()
+    protected void OnTouchUp()
     {
         if (currentClickedCard != null)
         {

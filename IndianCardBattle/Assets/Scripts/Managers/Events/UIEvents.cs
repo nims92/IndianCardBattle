@@ -5,5 +5,4 @@ public static class UIEvents
     public const string PLAYER_PROFILE_INITIALIZED = "PlayerProfileInitialized";
     public const string OPPONENT_PROFILE_INITIALIZED = "OpponentProfileInitialized";
     public const string UPDATE_TURN_COUNTER_UI = "UpdateTurnCounterUI";
-    //public const string UPDATE_CARD_STATE_IN_HAND = "UpdateCardStateInHand";
 }

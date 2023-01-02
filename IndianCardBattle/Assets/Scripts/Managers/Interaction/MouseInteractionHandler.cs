@@ -3,15 +3,9 @@
 public class MouseInteractionHandler : InteractionHandler
 {
     private bool touchDown = false;
-
-    public override void InitialSetup(Player player)
-    {
-        base.InitialSetup(player);
-    }
     
-    public override void InputUpdate()
+    protected override void InputUpdate()
     {
-        
         if (Input.GetMouseButtonDown(0))
         {
             touchDown = true;
