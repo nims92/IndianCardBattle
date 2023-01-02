@@ -5,11 +5,13 @@ public class LocationCardPlacement :MonoBehaviour, ILocationCardPlacement
 {
     private List<Vector3> placements;
     private List<ICard> currentCards;
+    private Transform selfTransform;
     
     public void Init(List<Vector3> placementPositions)
     {
         placements = placementPositions;
         currentCards = new List<ICard>();
+        selfTransform = transform;
     }
 
     public bool IsPlacementAreaFull()
@@ -30,7 +32,7 @@ public class LocationCardPlacement :MonoBehaviour, ILocationCardPlacement
         if (IsPlacementAreaFull())
             return;
         
-        card.CardMovementManager.ChangeParent(transform);
+        card.CardMovementManager.ChangeParent(selfTransform);
         card.CardMovementManager.MoveToLocalPosition(GetNextEmptyPosition(),null);
         card.CardMovementManager.ChangeScaleTo(GameData.Instance.GameplayData.GetCardScaleAtLocation());
         card.OnCardPlacedAtLocation();

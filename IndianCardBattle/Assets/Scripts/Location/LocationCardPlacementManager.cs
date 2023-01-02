@@ -37,7 +37,8 @@ public class LocationCardPlacementManager :MonoBehaviour, ILocationCardPlacement
     {
         return cardPlacements[playerIndex].IsPlacementAreaFull();
     }
-    
+
+    #region Private methods
     private bool IsValidPlayerIndex(int playerIndex)
     {
         if (playerIndex >= cardPlacements.Count)
@@ -45,4 +46,6 @@ public class LocationCardPlacementManager :MonoBehaviour, ILocationCardPlacement
 
         return true;
     }
+    #endregion
+    
 }
