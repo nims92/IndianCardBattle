@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LaunchScreenManager : UIBase
 {
-    public float timePauseOnLaunchScreen = 3f;
+    public float timePauseOnLaunchScreen = 2f;
 
     private void Start()
     {

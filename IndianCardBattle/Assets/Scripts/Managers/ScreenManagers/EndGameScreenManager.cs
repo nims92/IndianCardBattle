@@ -11,7 +11,6 @@ public class EndGameScreenManager : UIBase
 {
     [Header("Scene References")] 
     [SerializeField] private TextMeshProUGUI title;
-
     [SerializeField] private TextMeshProUGUI youWonLocationCounterText;
     [SerializeField] private TextMeshProUGUI opponentWonLocationCounterText;
 
