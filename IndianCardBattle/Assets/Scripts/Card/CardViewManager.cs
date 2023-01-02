@@ -7,7 +7,7 @@ public class CardViewManager : MonoBehaviour,ICardViewManager
     [SerializeField] private TextMeshProUGUI costText;
     [SerializeField] private TextMeshProUGUI powerText;
     [SerializeField] private CanvasGroup canvasGroup;
-
+    [SerializeField] private GameObject costUI;
     public void InitCardViewManager(string cardName, int cost, int power)
     {
         UpdateCardName(cardName);
@@ -33,5 +33,10 @@ public class CardViewManager : MonoBehaviour,ICardViewManager
     public void SetCardActive(bool value)
     {
         canvasGroup.alpha = value ? 1 : 0.4f;
+    }
+
+    public void ShowCardCostView(bool value)
+    {
+        costUI.SetActive(value);
     }
 }

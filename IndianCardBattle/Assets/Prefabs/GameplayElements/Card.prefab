@@ -179,6 +179,7 @@ MonoBehaviour:
   costText: {fileID: 5007719230350876268}
   powerText: {fileID: 5007719230432503007}
   canvasGroup: {fileID: 524552889404409886}
+  costUI: {fileID: 5007719230296993475}
 --- !u!225 &524552889404409886
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -690,6 +691,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adedbc48b5d644faf8656b1089ce2f69, type: 3}
+--- !u!1 &5007719230296993475 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 397975593578365016, guid: adedbc48b5d644faf8656b1089ce2f69, type: 3}
+  m_PrefabInstance: {fileID: 4682365556039167643}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5007719230296993484 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 397975593578365015, guid: adedbc48b5d644faf8656b1089ce2f69, type: 3}

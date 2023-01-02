@@ -5,4 +5,6 @@ public interface ICardViewManager
     void UpdateCardCost(int cost);
     void UpdateCardPower(int power);
     void SetCardActive(bool value);
+
+    void ShowCardCostView(bool value);
 }

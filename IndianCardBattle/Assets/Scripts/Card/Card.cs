@@ -55,11 +55,13 @@ public class Card : MonoBehaviour, ICard
     public void OnCardPlacedAtLocation()
     {
         cardStateManager.SetCardState(CardState.Location);
+        cardViewManager.ShowCardCostView(false);
     }
     
     public void OnCardPutInHand()
     {
         cardStateManager.SetCardState(CardState.Hand);
+        cardViewManager.ShowCardCostView(true);
     }
 
     public void SetCardLockedAtLocation()
