@@ -11,7 +11,7 @@ public enum InputOptionType
 public struct InputOptionsData
 {
     public InputOptionType type;
-    public GameObject inputOptionGameObject;
+    public InteractionHandler inputOptionGameObject;
 }
 
 /// <summary>
@@ -25,10 +25,22 @@ public class InputOptionManager : MonoBehaviour
 
     [SerializeField]
     List<InputOptionsData> inputOptions;
-
+    
+    public static InputOptionManager Instance { get; private set; }
+    
     #region Monobehaviour
     private void Awake()
     {
+        // If there is an instance, and it's not me, delete myself.
+        if (Instance != null && Instance != this) 
+        { 
+            Destroy(this); 
+        } 
+        else 
+        { 
+            Instance = this; 
+        }
+
 #if UNITY_EDITOR
         selectedInputOptionType = InputOptionType.Mouse;
 #endif
@@ -37,9 +49,10 @@ public class InputOptionManager : MonoBehaviour
     }
     #endregion
 
-    public void EnableInputBasedOnSelectedInputType()
+    public InteractionHandler EnableInputBasedOnSelectedInputType()
     {
         InputOptionsData data = inputOptions.Find(x => x.type == selectedInputOptionType);
-        data.inputOptionGameObject.SetActive(true);
+        data.inputOptionGameObject.gameObject.SetActive(true);
+        return data.inputOptionGameObject;
     }
 }

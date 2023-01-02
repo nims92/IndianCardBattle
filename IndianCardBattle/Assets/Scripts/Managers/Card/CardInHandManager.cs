@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 public class CardInHandManager : ICardHandManager
@@ -26,6 +25,7 @@ public class CardInHandManager : ICardHandManager
         cardToAdd.CardMovementManager.ChangeParent(selfTransform);
         Vector3 targetPos = horizontalLayoutHandler.GetCardPositionForIndex(cardsInHand.Count);
         cardToAdd.CardMovementManager.MoveToLocalPosition(targetPos, callback);
+        cardToAdd.CardMovementManager.ChangeScaleTo(GameData.Instance.GameplayData.GetCardScaleAtHand());
         cardToAdd.CardStateManager.SetCardState(CardState.Hand);
         cardsInHand.Add(cardToAdd);
     }
@@ -33,6 +33,7 @@ public class CardInHandManager : ICardHandManager
     public void RemoveCardFromHand(ICard cardToRemove)
     {
         cardsInHand.Remove(cardToRemove);
+        UpdateCardsPositionInHand();
     }
 
     public ICard GetRandomCardFromHand()
@@ -45,11 +46,21 @@ public class CardInHandManager : ICardHandManager
         foreach (var card in cardsInHand)
         {
             if (card.CardStatsManager.GetCardCost()<= currentCost)
-                card.CardViewManager.SetCardActive(true);
+                card.SetCardActive(true);
             else
             {
-                card.CardViewManager.SetCardActive(false);
+                card.SetCardActive(false);
             }
+        }
+    }
+
+    private void UpdateCardsPositionInHand()
+    {
+        Vector3 targetPos;
+        for (int i = 0; i < cardsInHand.Count; i++)
+        {
+            targetPos = horizontalLayoutHandler.GetCardPositionForIndex(i);
+            cardsInHand[i].CardMovementManager.SnapToLocalPosition(targetPos);
         }
     }
 }

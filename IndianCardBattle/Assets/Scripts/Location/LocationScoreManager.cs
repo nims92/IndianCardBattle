@@ -11,6 +11,11 @@
     {
         playerScores[playerIndex] += score;
     }
+    
+    public void DeductScoreForPlayer(int score, int playerIndex)
+    {
+        playerScores[playerIndex] -= score;
+    }
 
     public int GetScoreForPlayer(int playerIndex)
     {

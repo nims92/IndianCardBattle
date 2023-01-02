@@ -3,17 +3,16 @@
 public class TouchInteractionHandler: InteractionHandler
 {
     private Touch currentTouch;
-
-    public override void InitialSetup()
+    
+    public override void InitialSetup(Player player)
     {
+        base.InitialSetup(player);
         Input.multiTouchEnabled = false;
     }
 
     public override void InputUpdate()
     {
-        //TODO: add check for input disabled
-
-        //For Mobile Devices
+       //For Mobile Devices
         if (Input.touchCount == 1)
         {
             currentTouch = Input.GetTouch(0);

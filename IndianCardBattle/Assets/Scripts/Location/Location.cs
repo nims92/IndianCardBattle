@@ -4,14 +4,14 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
 {
     private bool isUnlocked;
     private int turnUnlockNumber;
-    private LocationID locationID;
+    public LocationID LocationID { get; set; }
     public ILocationScoreManager LocationScoreManager { get; set; }
     public ILocationViewManager LocationViewManager { get; set; }
     public ILocationCardPlacementManager LocationCardPlacementManager { get; set; }
 
     public void InitLocation(LocationID locationID,int turnUnlockNumber,int numberOfPlayers)
     {
-        this.locationID = locationID;
+        LocationID = locationID;
         this.turnUnlockNumber = turnUnlockNumber;
         
         //Score manager
@@ -22,19 +22,20 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
         LocationViewManager.InitView(LocationScoreManager.GetScoreForPlayer(0),
             LocationScoreManager.GetScoreForPlayer(1),
             "",
-            GameData.Instance.GetLocationNameWithID(locationID));
+            GameData.Instance.LocationDatabase.GetLocationNameWithID(locationID));
         
         //Card placement manager
         LocationCardPlacementManager = GetComponent<LocationCardPlacementManager>();
         LocationCardPlacementManager.Init();
         
         //Event subscription
-        CustomEventManager.Instance.AddListener(TurnEvents.UPDATE_TURN_COST,OnTurnUpdate);
+        CustomEventManager.Instance.AddListener(TurnEvents.UPDATE_TURN_COST,OnRoundUpdate);
+        CustomEventManager.Instance.AddListener(TurnEvents.TURN_UPDATED,OnTurnUpdate);
         
-        OnTurnUpdate(1);
+        OnRoundUpdate(1);
     }
 
-    public void OnTurnUpdate(params object []args)
+    public void OnRoundUpdate(params object []args)
     {
         if (CheckIfLocationUnlocked((int)args[0]))
             OnIslandUnlocked();
@@ -43,6 +44,11 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
         LocationViewManager.UpdateScore(false,LocationScoreManager.GetScoreForPlayer(1));
     }
 
+    public void OnTurnUpdate(params object[] args)
+    {
+        LocationCardPlacementManager.LockCardsAtAllPlacement();
+    }
+    
     private bool CheckIfLocationUnlocked(int turnNumber)
     {
         if (turnNumber == turnUnlockNumber)
@@ -54,7 +60,7 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
     {
         SetUnlocked(true);
         //TODO: show animation
-        Debug.Log($"Location Unlocked: {locationID}");
+        Debug.Log($"Location Unlocked: {LocationID}");
     }
 
     #region IUnlockable implementation
@@ -75,7 +81,13 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
     {
         LocationCardPlacementManager.AddCardToLocation(playerIndex,card);
         LocationScoreManager.AddScoreForPlayer(card.CardStatsManager.GetCardPower(),playerIndex);
+        card.SetCurrentLocation(this);
     }
-    
-    
+
+    public void RemoveCardFromLocation(int playerIndex, ICard card)
+    {
+        LocationCardPlacementManager.RemoveCardFromLocation(playerIndex,card);
+        LocationScoreManager.DeductScoreForPlayer(card.CardStatsManager.GetCardPower(),playerIndex);
+        card.SetCurrentLocation(null);
+    }
 }

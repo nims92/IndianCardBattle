@@ -5,10 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Canvas
-  - IslandParkArea
-  - Island
   - Card
-  - CardHandArea
+  - Location
   layers:
   - Default
   - TransparentFX
@@ -16,9 +14,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Card
+  - Location
+  - CardMovementArea
   - 
   - 
   - 

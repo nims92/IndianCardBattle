@@ -8,7 +8,7 @@ public class LocationCardPlacementManager :MonoBehaviour, ILocationCardPlacement
     {
         foreach (var cardPlacement in cardPlacements)
         {
-            cardPlacement.Init(GameData.Instance.GetCardPlacementPositionForIndex());
+            cardPlacement.Init(GameData.Instance.GameplayData.GetCardPlacementPositions());
         }
     }
     
@@ -22,6 +22,14 @@ public class LocationCardPlacementManager :MonoBehaviour, ILocationCardPlacement
     {
         if(IsValidPlayerIndex(playerIndex))
             cardPlacements[playerIndex].RemoveCard(careToRemove);
+    }
+
+    public void LockCardsAtAllPlacement()
+    {
+        foreach (var cardPlacement in cardPlacements)
+        {
+            cardPlacement.LockAllPlacedCards();
+        }
     }
 
     private bool IsValidPlayerIndex(int playerIndex)

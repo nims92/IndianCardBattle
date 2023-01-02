@@ -9,4 +9,6 @@ public interface ILocationCardPlacement
     void AddCard(ICard card);
     void RemoveCard(ICard card);
 
+    void LockAllPlacedCards();
+
 }

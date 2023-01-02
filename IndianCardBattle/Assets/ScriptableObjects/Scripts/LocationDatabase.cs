@@ -5,4 +5,14 @@ using UnityEngine;
 public class LocationDatabase : ScriptableObject
 {
     public List<LocationDataEntry> locationList;
+    
+    public Location GetLocationPrefabWithID(LocationID locationID)
+    {
+        return locationList.Find(location => location.locationID == locationID).locationPrefab;
+    }
+
+    public string GetLocationNameWithID(LocationID locationID)
+    {
+        return locationList.Find(location => location.locationID == locationID).name;
+    }
 }

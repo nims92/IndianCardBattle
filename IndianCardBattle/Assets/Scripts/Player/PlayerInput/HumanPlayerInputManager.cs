@@ -1,7 +1,25 @@
-public class HumanPlayerInputManager : IPlayerInputManager
+using UnityEngine;
+
+public class HumanPlayerInputManager : MonoBehaviour, IPlayerInputManager
 {
-    public void SetupPlayerInput()
+    private InteractionHandler interactionHandler;
+    public bool Interactable { get; set; }
+
+    public void SetupPlayerInput(Player player)
     {
-        //TODO : spawn mouse interaction
+        interactionHandler = InputOptionManager.Instance.EnableInputBasedOnSelectedInputType();
+        interactionHandler.InitialSetup(player);
     }
+
+    public void OnPlayerTurnReceived()
+    {
+        interactionHandler.InteractionEnabled = true;
+    }
+
+    public void OnPlayerTurnEnded()
+    {
+        interactionHandler.InteractionEnabled = false;
+    }
+    
+
 }

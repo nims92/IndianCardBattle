@@ -13,6 +13,9 @@ public class Card : MonoBehaviour, ICard
     private ICardStatsManager cardStatsManager;
     private ICardViewManager cardViewManager;
     private ICardMovementManager cardMovementManager;
+    private bool isCardActive = true;
+    private Transform cardTransform;
+    private ILocation currentLocation;
     
     public ICardStateManager CardStateManager
     {
@@ -40,12 +43,13 @@ public class Card : MonoBehaviour, ICard
     
     public void InitCard(CardID cardID)
     {
+        cardTransform = transform;
         CardID = cardID;
         cardStateManager = new CardStateManager();
-        cardStatsManager = new CardStatsManager(GameData.Instance.GetCardStatsByID(cardID));
+        cardStatsManager = new CardStatsManager(GameData.Instance.CardDatabase.GetCardStatsByID(cardID));
         cardViewManager = GetComponentInChildren<CardViewManager>();
-        cardViewManager.InitCardViewManager(GameData.Instance.GetCardNameByID(cardID),cardStatsManager.GetCardCost(),cardStatsManager.GetCardPower());
-        cardMovementManager = new CardMovementManager(transform);
+        cardViewManager.InitCardViewManager(GameData.Instance.CardDatabase.GetCardNameByID(cardID),cardStatsManager.GetCardCost(),cardStatsManager.GetCardPower());
+        cardMovementManager = new CardMovementManager(cardTransform);
     }
 
     public void OnCardPlacedAtLocation()
@@ -70,5 +74,43 @@ public class Card : MonoBehaviour, ICard
     {
         gameObject.SetActive(value);
     }
-    
+
+    public bool IsCardInteractable()
+    {
+        //Check card state
+        if (CardStateManager.GetCardCurrentState() == CardState.Deck ||
+            CardStateManager.GetCardCurrentState() == CardState.LockedAtLocation)
+            return false;
+
+        if (!IsCardActive())
+            return false;
+
+        return true;
+    }
+
+    public bool IsCardActive()
+    {
+        return isCardActive;
+    }
+
+    public void SetCardActive(bool value)
+    {
+        isCardActive = value;
+        cardViewManager.SetCardActive(value);
+    }
+
+    public Transform GetCardTransform()
+    {
+        return cardTransform;
+    }
+
+    public ILocation GetCurrentLocation()
+    {
+        return currentLocation;
+    }
+
+    public void SetCurrentLocation(ILocation newLocation)
+    {
+        currentLocation = newLocation;
+    }
 }

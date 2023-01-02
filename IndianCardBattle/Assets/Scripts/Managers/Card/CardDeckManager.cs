@@ -45,9 +45,9 @@ public class CardDeckManager : ICardDeckManager
     {
         List<CardID> returnList = new List<CardID>();
         
-        returnList.AddRange(GameData.Instance.GetCardIDWithGivenCost(cardsInDeck,energyCost-1));
-        returnList.AddRange(GameData.Instance.GetCardIDWithGivenCost(cardsInDeck,energyCost));
-        returnList.AddRange(GameData.Instance.GetCardIDWithGivenCost(cardsInDeck,energyCost+1));
+        returnList.AddRange(GameData.Instance.CardDatabase.GetCardIDWithGivenCost(cardsInDeck,energyCost-1));
+        returnList.AddRange(GameData.Instance.CardDatabase.GetCardIDWithGivenCost(cardsInDeck,energyCost));
+        returnList.AddRange(GameData.Instance.CardDatabase.GetCardIDWithGivenCost(cardsInDeck,energyCost+1));
 
         int randomCardIndex;
         
@@ -65,7 +65,7 @@ public class CardDeckManager : ICardDeckManager
 
     private Card SpawnCard(CardID cardID)
     {
-        return objectSpawner.SpawnObjectOfType(GameData.Instance.GetCardPrefabByID(cardID),
+        return objectSpawner.SpawnObjectOfType(GameData.Instance.CardDatabase.GetCardPrefabByID(cardID),
             parentTransform.position,
             Quaternion.identity,
             parentTransform);

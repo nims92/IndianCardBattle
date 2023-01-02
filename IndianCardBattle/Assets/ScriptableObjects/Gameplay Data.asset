@@ -23,3 +23,7 @@ MonoBehaviour:
     - {x: -5.5, y: 0.1, z: -6.56}
     - {x: 5.5, y: 0.1, z: -6.56}
     cardScaleAtLocation: {x: 0.7, y: 1, z: 0.7}
+  cardGameplayData:
+    cardScaleAtLocation: {x: 0.7, y: 1, z: 0.7}
+    cardScaleAtHand: {x: 1, y: 1, z: 1}
+    cardScaleAtDeck: {x: 1, y: 1, z: 1}

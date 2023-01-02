@@ -40,6 +40,7 @@ public class PlayerManager : MonoBehaviour
         SelfPlayer = new Player(selfPlayerConfiguration.name,
             0,
             selfPlayerConfiguration.playerInputType,
+            GetComponentInChildren<HumanPlayerInputManager>(),
             objectSpawner,
             selfPlayerConfiguration.playerDeck,
             areaLocationProvider.PlayerCardDeckParent,
@@ -53,6 +54,7 @@ public class PlayerManager : MonoBehaviour
         OpponentPlayer = new Player(opponentPlayerConfiguration.name,
             1,
             opponentPlayerConfiguration.playerInputType,
+            new AIPlayerInputManager(),
             objectSpawner,
             opponentPlayerConfiguration.playerDeck,
             areaLocationProvider.OpponentCardDeckParent,
@@ -66,10 +68,17 @@ public class PlayerManager : MonoBehaviour
     private void OnTurnUpdated(params object[] args)
     {
         int currentPlayerTurnIndex = (int)args[0];
-        
-        if(currentPlayerTurnIndex == 0)
+
+        if (currentPlayerTurnIndex == 0)
+        {
             selfPlayer.OnPlayerTurnReceived();
+            opponentPlayer.OnPlayerTurnEnd();
+        }
         else
+        {
             opponentPlayer.OnPlayerTurnReceived();
+            selfPlayer.OnPlayerTurnEnd();
+        }
+            
     }
 }

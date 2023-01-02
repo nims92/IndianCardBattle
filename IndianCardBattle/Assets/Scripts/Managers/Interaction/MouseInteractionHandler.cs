@@ -4,12 +4,14 @@ public class MouseInteractionHandler : InteractionHandler
 {
     private bool touchDown = false;
 
+    public override void InitialSetup(Player player)
+    {
+        base.InitialSetup(player);
+    }
+    
     public override void InputUpdate()
     {
-        //TODO: add check for input disabled
-        /*if (GameManager.Instance.InputDisabled || GameManager.Instance.GameIsOver)
-            return;*/
-
+        
         if (Input.GetMouseButtonDown(0))
         {
             touchDown = true;

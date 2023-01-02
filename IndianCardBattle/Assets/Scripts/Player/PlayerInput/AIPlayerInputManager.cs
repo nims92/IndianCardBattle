@@ -1,7 +1,20 @@
 public class AIPlayerInputManager : IPlayerInputManager
 {
-    public void SetupPlayerInput()
+    private Player player;
+    public bool Interactable { get; set; }
+
+    public void SetupPlayerInput(Player player)
     {
-        //TODO : spawn AI
+        this.player = player;
+    }
+
+    public void OnPlayerTurnReceived()
+    {
+        
+    }
+
+    public void OnPlayerTurnEnded()
+    {
+        
     }
 }

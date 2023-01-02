@@ -1,6 +1,7 @@
 public interface IPlayerInputManager
 {
-    void SetupPlayerInput();
-    
-    
+    bool Interactable { get; set; }
+    void SetupPlayerInput(Player player);
+    void OnPlayerTurnReceived();
+    void OnPlayerTurnEnded();
 }

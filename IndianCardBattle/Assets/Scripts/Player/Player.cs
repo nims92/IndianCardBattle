@@ -13,6 +13,7 @@ public class Player
     public CardManager PlayerCardManager => playerCardManager;
     
     public Player(string playerName,int playerID,PlayerInputType inputType,
+        IPlayerInputManager inputManager,
         IObjectSpawner objectSpawner,
         Deck deck,Transform deckTransform,Transform handTransform, 
         int maxCardInHand)
@@ -20,6 +21,8 @@ public class Player
         playerProfile = new PlayerProfile(playerName, playerID);
         playerCardManager = new CardManager(objectSpawner, deck, deckTransform, handTransform, maxCardInHand);
         turnCostManager = new TurnCostManager(inputType == PlayerInputType.Human);
+        this.playerInputManager = inputManager;
+        playerInputManager.SetupPlayerInput(this);
     }
 
     public void OnPlayerTurnReceived()
@@ -29,11 +32,8 @@ public class Player
 
     public void OnPlayerTurnEnd()
     {
-        //TODO add logic to disable system when turn ends
-        /*
-         * Disable input
-         */
-        
+        //Lock cards at location
+        playerInputManager.OnPlayerTurnEnded();
     }
 
     public void OnCardDrawnFromDeck()
@@ -43,19 +43,36 @@ public class Player
          * Enable input
          */
         UpdateCardInHandState();
-        MoveCardFromHandToLocation(PlayerCardManager.GetRandomCardFromHand(),
-            LocationManager.Instance.GetRandomLocation());
+        playerInputManager.OnPlayerTurnReceived();
+        /*MoveCardFromHandToLocation(PlayerCardManager.GetRandomCardFromHand(),
+            LocationManager.Instance.GetRandomLocation());*/
     }
 
     public void MoveCardFromHandToLocation(ICard card, ILocation destinationLocation)
     {
         destinationLocation.AddCardToLocation(Profile.GetPlayerID(),card);
         playerCardManager.RemoveCardFromHand(card);
+        turnCostManager.UpdateTurnCost(-card.CardStatsManager.GetCardCost());
+        UpdateCardInHandState();
     }
     
     public void MoveCardToHandFromLocation(ICard card, ILocation currentLocation)
     {
-        
+        currentLocation.RemoveCardFromLocation(Profile.GetPlayerID(),card);
+        playerCardManager.AddCardToHand(card,null);
+        turnCostManager.UpdateTurnCost(card.CardStatsManager.GetCardCost());
+        UpdateCardInHandState();
+    }
+
+    public void MoveCardToHand(ICard card, Vector3 position)
+    {
+        card.CardMovementManager.SnapToPosition(position);
+    }
+
+    public void MoveCardToNewLocation(ICard card, ILocation oldLocation, ILocation newLocation)
+    {
+        oldLocation.RemoveCardFromLocation(Profile.GetPlayerID(),card);
+        newLocation.AddCardToLocation(Profile.GetPlayerID(), card);
     }
 
     public void UpdateCardInHandState()

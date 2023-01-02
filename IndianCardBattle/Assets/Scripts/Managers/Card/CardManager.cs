@@ -19,12 +19,17 @@ public class CardManager
         if (cardHandManager.CanAddCard)
         {
             Card card = cardDeckManager.DrawCardFromDeck(cost);
-            cardHandManager.AddCardToHand(card, callback);
+            AddCardToHand(card, callback);
         }
         else
         {
             //TODO: implement logic to reset hand
         }
+    }
+
+    public void AddCardToHand(ICard card,Action callback )
+    {
+        cardHandManager.AddCardToHand(card,callback);
     }
 
     public void RemoveCardFromHand(ICard card)

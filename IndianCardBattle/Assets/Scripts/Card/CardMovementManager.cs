@@ -22,7 +22,17 @@ public class CardMovementManager : ICardMovementManager
         LeanTween.moveLocal(cardTransform.gameObject, targetPosition, movementTime)
             .setOnComplete(callback);
     }
+
+    public void SnapToPosition(Vector3 targetPosition)
+    {
+        LeanTween.move(cardTransform.gameObject, targetPosition, 0.05f);
+    }
     
+    public void SnapToLocalPosition(Vector3 targetPosition)
+    {
+        LeanTween.moveLocal(cardTransform.gameObject, targetPosition, 0.05f);
+    }
+
     public void ChangeScaleTo(Vector3 newScale)
     {
         LeanTween.scale(cardTransform.gameObject, newScale, movementTime);

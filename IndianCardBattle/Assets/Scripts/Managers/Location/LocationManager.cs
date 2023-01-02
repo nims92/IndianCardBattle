@@ -69,8 +69,8 @@ public class LocationManager : MonoBehaviour,ILocationManager
       for(int i=0; i<locationsToSpawn.Count; i++)
       {
          locationID = locationsToSpawn[i];
-         spawnPos = GameData.Instance.GetLocationSpawnPosForIndex(i);
-         toSpawn = GameData.Instance.GetLocationPrefabWithID(locationID);
+         spawnPos = GameData.Instance.GameplayData.GetLocationSpawnPosForIndex(i);
+         toSpawn = GameData.Instance.LocationDatabase.GetLocationPrefabWithID(locationID);
          toSpawn = objectSpawner.SpawnObjectOfType(toSpawn, spawnPos, Quaternion.identity, selfTransform);
          toSpawn.InitLocation(locationID,i+1,Constants.NUMBER_OF_PLAYERS);
          locations.Add(toSpawn);

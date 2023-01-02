@@ -43,6 +43,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b13762a20b779741a2c19d0032aad9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  locationLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  cardMovementLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &1164481747748033849
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,6 +95,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e730d3d795c3644b82e21c5da3c89b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  locationLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  cardMovementLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &1164481748150364918
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,6 +152,6 @@ MonoBehaviour:
   selectedInputOptionType: 0
   inputOptions:
   - type: 1
-    inputOptionGameObject: {fileID: 1164481747748033849}
+    inputOptionGameObject: {fileID: 1164481747748033831}
   - type: 0
-    inputOptionGameObject: {fileID: 1164481746721370547}
+    inputOptionGameObject: {fileID: 1164481746721370545}

@@ -7,11 +7,10 @@ public class LocationData
 {
     public List<Vector3> locationSpawnPositions;
     public List<Vector3> cardPlacementPositions;
-    public Vector3 cardScaleAtLocation;
 }
 
 [System.Serializable]
-public class CardData
+public class CardGameplayData
 {
     public Vector3 cardScaleAtLocation;
     public Vector3 cardScaleAtHand;
@@ -22,7 +21,7 @@ public class CardData
 public class GameplayData : ScriptableObject
 {
     [SerializeField] private LocationData locationData;
-
+    [SerializeField] private CardGameplayData cardGameplayData;
     public Vector3 GetLocationSpawnPosForIndex(int index)
     {
         return locationData.locationSpawnPositions[index];
@@ -35,6 +34,12 @@ public class GameplayData : ScriptableObject
 
     public Vector3 GetCardScaleAtLocation()
     {
-        return locationData.cardScaleAtLocation;
+        return cardGameplayData.cardScaleAtLocation;
     }
+
+    public Vector3 GetCardScaleAtHand()
+    {
+        return cardGameplayData.cardScaleAtHand;
+    }
+    
 }
