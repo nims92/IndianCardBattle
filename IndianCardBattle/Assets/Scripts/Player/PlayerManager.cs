@@ -21,8 +21,7 @@ public class PlayerManager : MonoBehaviour
     }
     #endregion
 
-    public void InitPlayers(IObjectSpawner objectSpawner,
-        GameAreaLocationProvider areaLocationProvider)
+    public void InitPlayers(IObjectSpawner objectSpawner, GameAreaLocationProvider areaLocationProvider)
     {
         //Init self player
         SelfPlayer = new Player(selfPlayerConfiguration.name,
