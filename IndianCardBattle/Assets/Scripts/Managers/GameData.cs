@@ -12,8 +12,6 @@ public class GameData : MonoBehaviour
     [Space(10)]
     [SerializeField] private CheatData cheatData;
 
-    public static GameData Instance { get; private set; }
-
     public LocationDatabase LocationDatabase
     {
         get => locationDatabase;
@@ -37,9 +35,10 @@ public class GameData : MonoBehaviour
     public GameplayData GameplayData
     {
         get => gameplayData;
-        set => gameplayData = value;
     }
 
+    #region Singleton
+    public static GameData Instance { get; private set; }
     private void Awake() 
     { 
         // If there is an instance, and it's not me, delete myself.
@@ -53,4 +52,6 @@ public class GameData : MonoBehaviour
             Instance = this; 
         } 
     }
+    #endregion
+    
 }

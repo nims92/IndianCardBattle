@@ -1,21 +1,13 @@
-using UnityEngine;
-
 public class TurnManager
 {
-    private int currentTurnPlayerIndex;
-    private int totalNumberOfPlayers;
     private int turnCounter;
-    private int maxAllowedTurnsForGame;
-    public int CurrentTurnPlayerIndex { get => currentTurnPlayerIndex; set => currentTurnPlayerIndex = value; }
-    public int TotalNumberOfPlayers { get => totalNumberOfPlayers; set => totalNumberOfPlayers = value; }
-
-    public int TurnCounter
+    private readonly int maxAllowedTurnsForGame;
+    private int TotalNumberOfPlayers { get; set; }
+    public int CurrentTurnPlayerIndex { get; private set; }
+    private int TurnCounter
     {
-        get
-        {
-            return turnCounter;
-        }
-        private set
+        get => turnCounter;
+        set
         {
             turnCounter = value;
             if(IsMoreTurnAllowed())
@@ -32,11 +24,11 @@ public class TurnManager
         CustomEventManager.Instance.AddListener(UIEvents.END_TURN_BUTTON_PRESSED,UpdateTurn);
     }
 
-    public void UpdateTurn(params object [] args)
+    private void UpdateTurn(params object [] args)
     {
         CurrentTurnPlayerIndex++;
         
-        if (CurrentTurnPlayerIndex == totalNumberOfPlayers)
+        if (CurrentTurnPlayerIndex == TotalNumberOfPlayers)
         {
             CurrentTurnPlayerIndex = 0;
             TurnCounter++;
@@ -49,12 +41,9 @@ public class TurnManager
             CustomEventManager.Instance.Invoke(GameFlowEvents.GAME_END_EVENT);
         }
     }
-    
-    public bool IsMoreTurnAllowed()
-    {
-        if (TurnCounter > maxAllowedTurnsForGame)
-            return false;
 
-        return true;
+    private bool IsMoreTurnAllowed()
+    {
+        return TurnCounter <= maxAllowedTurnsForGame;
     }
 }

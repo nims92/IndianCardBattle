@@ -1,7 +1,7 @@
 public class TurnCostManager
 {
-    private int currentCost;
-    private bool shouldFireUIUpdateEvents;
+    private readonly bool shouldFireUIUpdateEvents;
+    public int CurrentCost { get; private set; }
     
     public TurnCostManager(bool shouldFireUIUpdateEvents)
     {
@@ -9,23 +9,17 @@ public class TurnCostManager
         CustomEventManager.Instance.AddListener(TurnEvents.UPDATE_TURN_COST,SetCost);
     }
 
-    public int CurrentCost
+    public void UpdateTurnCost(int costUpdateBy)
     {
-        get => currentCost;
-        set => currentCost = value;
-    }
-
-    public void SetCost(params object [] args)
-    {
-        CurrentCost = (int)args[0];
+        CurrentCost += costUpdateBy;
         
         if(shouldFireUIUpdateEvents)
             CustomEventManager.Instance.Invoke(UIEvents.UPDATE_TURN_COUNTER_UI,CurrentCost);
     }
     
-    public void UpdateTurnCost(int costUpdateBy)
+    private void SetCost(params object [] args)
     {
-        CurrentCost += costUpdateBy;
+        CurrentCost = (int)args[0];
         
         if(shouldFireUIUpdateEvents)
             CustomEventManager.Instance.Invoke(UIEvents.UPDATE_TURN_COUNTER_UI,CurrentCost);

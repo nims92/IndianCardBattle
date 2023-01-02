@@ -31,29 +31,10 @@ public class GameManager : MonoBehaviour
     {
         CustomEventManager.Instance.RemoveListener(GameFlowEvents.GAME_END_EVENT,OnGameEnded);
     }
-
-    /*#region Testing
-    private void TestCardDrawing()
-    {
-        cardManager.DrawNextCard();
-    }
-
-    private void TestCardToLocation()
-    {
-        MoveCardToLocation(locationManager.GetFirstLocation(),cardManager.GetFirstCard());
-    }
     
-    private void MoveCardToLocation(Location targetLocation, ICard card)
-    {
-        locationManager.AddCardToLocation(0,targetLocation,card);
-    }
-
-    #endregion*/
-
     private void OnGameEnded(params object [] args)
     {
         LocationManager.Instance.CalculateDataForGameEndScreen();
         UISceneController.Instance.ShowUIScreen(ScreenManager.UIScreens.GameEndScreen);
     }
-    
 }
