@@ -1,32 +1,19 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class LocationManager : MonoBehaviour,ILocationManager
 {
    private List<Location> locations;
    private Transform selfTransform;
    private IObjectSpawner objectSpawner;
-
-   private int locationsWonByPlayer;
-   private int locationsWonByOpponent;
    
+   public int LocationsWonByPlayer { get; set; }
+
+   public int LocationsWonByOpponent { get; set; }
+
+   #region Singleton
    public static LocationManager Instance { get; private set; }
-
-   public int LocationsWonByPlayer
-   {
-      get => locationsWonByPlayer;
-      set => locationsWonByPlayer = value;
-   }
-
-   public int LocationsWonByOpponent
-   {
-      get => locationsWonByOpponent;
-      set => locationsWonByOpponent = value;
-   }
-
+   
    private void Awake() 
    { 
       // If there is an instance, and it's not me, delete myself.
@@ -40,6 +27,8 @@ public class LocationManager : MonoBehaviour,ILocationManager
          Instance = this; 
       } 
    }
+
+   #endregion
 
    public void SetDependencies(IObjectSpawner objectSpawner, Transform transform)
    {
@@ -76,19 +65,6 @@ public class LocationManager : MonoBehaviour,ILocationManager
          locations.Add(toSpawn);
       }
    }
-
-   private List<LocationID> GetRandomListOfLocations()
-   {
-      List<LocationDataEntry> data = Utilities.GetRandomElements(GameData.Instance.LocationDatabase.locationList,
-         Constants.NUMBER_OF_LOCATIONS);
-
-      return new List<LocationID>()
-      {
-         data[0].locationID,
-         data[1].locationID,
-         data[2].locationID
-      };
-   }
    
    public ILocation GetRandomLocation(int playerIndex)
    {
@@ -120,4 +96,19 @@ public class LocationManager : MonoBehaviour,ILocationManager
          }
       }
    }
+   
+   #region Private methods
+   private List<LocationID> GetRandomListOfLocations()
+   {
+      List<LocationDataEntry> data = Utilities.GetRandomElements(GameData.Instance.LocationDatabase.locationList,
+         Constants.NUMBER_OF_LOCATIONS);
+
+      return new List<LocationID>()
+      {
+         data[0].locationID,
+         data[1].locationID,
+         data[2].locationID
+      };
+   }
+   #endregion
 }
