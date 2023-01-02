@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+//TODO derive this class from interface
 public class CardManager
 {
     private ICardDeckManager cardDeckManager;

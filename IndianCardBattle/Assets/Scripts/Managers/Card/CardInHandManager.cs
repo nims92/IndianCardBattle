@@ -9,7 +9,7 @@ public class CardInHandManager : ICardHandManager
     private List<ICard> cardsInHand;
     private Transform selfTransform;
     private int CurrentCardCount => cardsInHand.Count;
-    private CardHorizontalLayoutHandler horizontalLayoutHandler;
+    private CardHorizontalLayoutHandler horizontalLayoutHandler; 
     private int MaxCardCountInHand { get; set; }
     
     public bool CanAddCard => cardsInHand.Count < MaxCardCountInHand;
@@ -28,7 +28,6 @@ public class CardInHandManager : ICardHandManager
         Vector3 targetPos = horizontalLayoutHandler.GetCardPositionForIndex(cardsInHand.Count);
         cardToAdd.CardMovementManager.MoveToLocalPosition(targetPos, callback);
         cardToAdd.CardMovementManager.ChangeScaleTo(GameData.Instance.GameplayData.GetCardScaleAtHand());
-        //cardToAdd.CardStateManager.SetCardState(CardState.Hand);
         cardToAdd.OnCardPutInHand();
         cardsInHand.Add(cardToAdd);
     }
@@ -43,7 +42,7 @@ public class CardInHandManager : ICardHandManager
     {
         List<ICard> playableCards = cardsInHand.FindAll(card => card.IsCardActive());
 
-        if (playableCards.Count ==0)
+        if (playableCards.Count == 0)
         {
             return null;
         }
@@ -66,6 +65,7 @@ public class CardInHandManager : ICardHandManager
         }
     }
 
+    #region Private Methods
     private void UpdateCardsPositionInHand()
     {
         Vector3 targetPos;
@@ -75,4 +75,6 @@ public class CardInHandManager : ICardHandManager
             cardsInHand[i].CardMovementManager.SnapToLocalPosition(targetPos);
         }
     }
+    #endregion
+    
 }

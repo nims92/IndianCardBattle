@@ -8,8 +8,6 @@ public class CardHorizontalLayoutHandler
     private Vector3 startPosition;
     private float cardWidth;
     
-    public int CurrentCardCount => currentCardCount;
-
     public CardHorizontalLayoutHandler(Transform selfTransform,float xOffset,float startPosition)
     {
         this.selfTransform = selfTransform;

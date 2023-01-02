@@ -41,6 +41,7 @@ public class CardDeckManager : ICardDeckManager
         return card;
     }
 
+    #region Private methods
     private CardID SelectCardFromDeck(int energyCost)
     {
         List<CardID> returnList = new List<CardID>();
@@ -71,4 +72,5 @@ public class CardDeckManager : ICardDeckManager
             parentTransform);
     }
     
+    #endregion
 }
