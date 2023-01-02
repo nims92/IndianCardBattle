@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+//TODO refactor this class
 public class CardMovementManager : ICardMovementManager
 {
     private Transform cardTransform;

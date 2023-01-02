@@ -4,6 +4,7 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
 {
     private bool isUnlocked;
     private int turnUnlockNumber;
+    
     public LocationID LocationID { get; set; }
     public ILocationScoreManager LocationScoreManager { get; set; }
     public ILocationViewManager LocationViewManager { get; set; }
@@ -49,33 +50,6 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
         LocationCardPlacementManager.LockCardsAtAllPlacement();
     }
     
-    private bool CheckIfLocationUnlocked(int turnNumber)
-    {
-        if (turnNumber == turnUnlockNumber)
-            return true;
-        return false;
-    }
-    
-    private void OnIslandUnlocked()
-    {
-        SetUnlocked(true);
-    }
-
-    #region IUnlockable implementation
-
-    public bool IsUnlocked()
-    {
-        return isUnlocked;
-    }
-
-    public void SetUnlocked(bool value)
-    {
-        isUnlocked = value;
-        LocationViewManager.OnLocationUnlocked();
-    }
-
-    #endregion
-
     public void AddCardToLocation(int playerIndex,ICard card)
     {
         LocationCardPlacementManager.AddCardToLocation(playerIndex,card);
@@ -94,4 +68,34 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
     {
         return LocationCardPlacementManager.IsCardPlacementAreaFullForPlayer(playerIndex);
     }
+    
+    
+    #region IUnlockable implementation
+
+    public bool IsUnlocked()
+    {
+        return isUnlocked;
+    }
+
+    public void SetUnlocked(bool value)
+    {
+        isUnlocked = value;
+        LocationViewManager.OnLocationUnlocked();
+    }
+
+    #endregion
+
+    #region Private methods
+    private bool CheckIfLocationUnlocked(int turnNumber)
+    {
+        if (turnNumber == turnUnlockNumber)
+            return true;
+        return false;
+    }
+
+    private void OnIslandUnlocked()
+    {
+        SetUnlocked(true);
+    }
+    #endregion
 }

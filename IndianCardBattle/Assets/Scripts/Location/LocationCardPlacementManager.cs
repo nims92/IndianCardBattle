@@ -1,4 +1,5 @@
-using System.Collections.Generic;using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class LocationCardPlacementManager :MonoBehaviour, ILocationCardPlacementManager
 {
@@ -31,17 +32,17 @@ public class LocationCardPlacementManager :MonoBehaviour, ILocationCardPlacement
             cardPlacement.LockAllPlacedCards();
         }
     }
-
+    
+    public bool IsCardPlacementAreaFullForPlayer(int playerIndex)
+    {
+        return cardPlacements[playerIndex].IsPlacementAreaFull();
+    }
+    
     private bool IsValidPlayerIndex(int playerIndex)
     {
         if (playerIndex >= cardPlacements.Count)
             return false;
 
         return true;
-    }
-
-    public bool IsCardPlacementAreaFullForPlayer(int playerIndex)
-    {
-        return cardPlacements[playerIndex].IsPlacementAreaFull();
     }
 }
