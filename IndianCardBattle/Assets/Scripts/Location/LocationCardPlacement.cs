@@ -33,7 +33,8 @@ public class LocationCardPlacement :MonoBehaviour, ILocationCardPlacement
         card.CardMovementManager.ChangeParent(transform);
         card.CardMovementManager.MoveToLocalPosition(GetNextEmptyPosition(),null);
         card.CardMovementManager.ChangeScaleTo(GameData.Instance.GameplayData.GetCardScaleAtLocation());
-        card.CardStateManager.SetCardState(CardState.Location);
+        //card.CardStateManager.SetCardState(CardState.Location);
+        card.OnCardPlacedAtLocation();
         currentCards.Add(card);
     }
     public void RemoveCard(ICard card)
@@ -45,7 +46,7 @@ public class LocationCardPlacement :MonoBehaviour, ILocationCardPlacement
     {
         foreach (var card in currentCards)
         {
-            card.CardStateManager.SetCardState(CardState.LockedAtLocation);
+            card.SetCardLockedAtLocation();
         }
     }
 }

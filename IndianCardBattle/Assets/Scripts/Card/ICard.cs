@@ -11,14 +11,14 @@ public interface ICard
     void InitCard(CardID cardID);
     void SetCardVisible(bool value);
     bool IsCardInteractable();
-    
     bool IsCardActive();
-
     void SetCardActive(bool value);
-
     Transform GetCardTransform();
 
     ILocation GetCurrentLocation();
 
     void SetCurrentLocation(ILocation newLocation);
+    void OnCardPlacedAtLocation();
+    void OnCardPutInHand();
+    void SetCardLockedAtLocation();
 }

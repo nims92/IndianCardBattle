@@ -28,7 +28,8 @@ public class CardInHandManager : ICardHandManager
         Vector3 targetPos = horizontalLayoutHandler.GetCardPositionForIndex(cardsInHand.Count);
         cardToAdd.CardMovementManager.MoveToLocalPosition(targetPos, callback);
         cardToAdd.CardMovementManager.ChangeScaleTo(GameData.Instance.GameplayData.GetCardScaleAtHand());
-        cardToAdd.CardStateManager.SetCardState(CardState.Hand);
+        //cardToAdd.CardStateManager.SetCardState(CardState.Hand);
+        cardToAdd.OnCardPutInHand();
         cardsInHand.Add(cardToAdd);
     }
 

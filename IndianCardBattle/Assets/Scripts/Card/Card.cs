@@ -8,7 +8,6 @@ public enum CardState
 }
 public class Card : MonoBehaviour, ICard
 {
-    public CardID CardID { get; set; }
     private ICardStateManager cardStateManager;
     private ICardStatsManager cardStatsManager;
     private ICardViewManager cardViewManager;
@@ -17,6 +16,7 @@ public class Card : MonoBehaviour, ICard
     private Transform cardTransform;
     private ILocation currentLocation;
     
+    public CardID CardID { get; set; }
     public ICardStateManager CardStateManager
     {
         get => cardStateManager;
@@ -34,7 +34,7 @@ public class Card : MonoBehaviour, ICard
         get => cardViewManager;
         set => cardViewManager = value;
     }
-
+    
     public ICardMovementManager CardMovementManager
     {
         get => cardMovementManager;
@@ -56,6 +56,16 @@ public class Card : MonoBehaviour, ICard
     {
         cardStateManager.SetCardState(CardState.Location);
     }
+    
+    public void OnCardPutInHand()
+    {
+        cardStateManager.SetCardState(CardState.Hand);
+    }
+
+    public void SetCardLockedAtLocation()
+    {
+        cardStateManager.SetCardState(CardState.LockedAtLocation);
+    }
 
     public void OnTurnUpdated()
     {
@@ -64,12 +74,7 @@ public class Card : MonoBehaviour, ICard
             cardStateManager.SetCardState(CardState.LockedAtLocation);
         }
     }
-
-    public void OnCardPutInHand()
-    {
-        cardStateManager.SetCardState(CardState.Hand);
-    }
-
+    
     public void SetCardVisible(bool value)
     {
         gameObject.SetActive(value);
@@ -81,7 +86,8 @@ public class Card : MonoBehaviour, ICard
         if (CardStateManager.GetCardCurrentState() == CardState.Deck ||
             CardStateManager.GetCardCurrentState() == CardState.LockedAtLocation)
             return false;
-
+        
+        //Check if card active i.e. player enough cost to play this card
         if (!IsCardActive())
             return false;
 
