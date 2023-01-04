@@ -24,7 +24,7 @@ public class CardDeckManager : ICardDeckManager
     public void AddCardToDeck(Card card)
     {
         card.CardMovementManager.ChangeParent(parentTransform);
-        card.CardMovementManager.MoveToPosition(parentTransform.position);
+        card.CardMovementManager.MoveToPosition(parentTransform.position,GameData.Instance.AnimationData.cardNormalMovementTime);
         cardsInDeck.Add(card);
     }
 

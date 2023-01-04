@@ -4,6 +4,7 @@ public class GameData : MonoBehaviour
 {
     [SerializeField] private GameplayData gameplayData;
     [SerializeField] private GameConfiguration gameConfiguration;
+    [SerializeField] private AnimationData animationData;
     
     [Space(10)]
     [SerializeField] private LocationDatabase locationDatabase;
@@ -36,7 +37,12 @@ public class GameData : MonoBehaviour
     {
         get => gameplayData;
     }
-
+    
+    public AnimationData AnimationData
+    {
+        get => animationData;
+    }
+    
     #region Singleton
     public static GameData Instance { get; private set; }
     private void Awake() 

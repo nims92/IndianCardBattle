@@ -55,7 +55,7 @@ public class InteractionHandler : MonoBehaviour
             //Move card
             if (Physics.Raycast(ray, out RaycastHit hit,500, cardMovementLayerMask))
             {
-                currentClickedCard.CardMovementManager.SnapToPosition(hit.point);
+                currentClickedCard.CardMovementManager.SnapToPosition(hit.point,GameData.Instance.AnimationData.cardSnapMovementTime);
             }
         }
     }

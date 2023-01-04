@@ -49,7 +49,7 @@ public class Player
 
     public void MoveCardToHand(ICard card, Vector3 position)
     {
-        card.CardMovementManager.SnapToPosition(position);
+        card.CardMovementManager.SnapToPosition(position,GameData.Instance.AnimationData.cardSnapMovementTime);
     }
 
     public void MoveCardToNewLocation(ICard card, ILocation oldLocation, ILocation newLocation)

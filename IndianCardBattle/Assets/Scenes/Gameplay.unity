@@ -692,6 +692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameplayData: {fileID: 11400000, guid: 93e9d38315963473cadce515f0d7dae7, type: 2}
   gameConfiguration: {fileID: 11400000, guid: aa38156c608b2437fa04affc7fb6ba75, type: 2}
+  animationData: {fileID: 11400000, guid: 0288585e54fc344958b16d54b63d7d69, type: 2}
   locationDatabase: {fileID: 11400000, guid: 912f6e86da14145c7ba28b767d0d34e9, type: 2}
   cardDatabase: {fileID: 11400000, guid: 265fa47c13cae453fabf3015d30bbba2, type: 2}
   cheatData: {fileID: 11400000, guid: 34e6d0e83b3d34a6593cd65d1cfebedf, type: 2}
@@ -1792,8 +1793,6 @@ MonoBehaviour:
   selfPlayerProfileView: {fileID: 5044305151549673882}
   opponentPlayerProfileView: {fileID: 1294503960}
   costCounterText: {fileID: 1908651429}
-  AIturnButton: {fileID: 0}
-  AIturnButtonText: {fileID: 0}
 --- !u!1 &1342879578
 GameObject:
   m_ObjectHideFlags: 0

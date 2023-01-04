@@ -33,8 +33,8 @@ public class LocationCardPlacement :MonoBehaviour, ILocationCardPlacement
             return;
         
         card.CardMovementManager.ChangeParent(selfTransform);
-        card.CardMovementManager.MoveToLocalPosition(GetNextEmptyPosition(),null);
-        card.CardMovementManager.ChangeScaleTo(GameData.Instance.GameplayData.GetCardScaleAtLocation());
+        card.CardMovementManager.MoveToLocalPosition(GetNextEmptyPosition(),GameData.Instance.AnimationData.cardNormalMovementTime);
+        card.CardMovementManager.ChangeScaleTo(GameData.Instance.GameplayData.GetCardScaleAtLocation(),GameData.Instance.AnimationData.cardScaleAnimationTime);
         card.OnCardPlacedAtLocation();
         currentCards.Add(card);
     }

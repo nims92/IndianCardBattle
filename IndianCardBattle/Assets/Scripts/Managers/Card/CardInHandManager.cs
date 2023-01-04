@@ -26,8 +26,8 @@ public class CardInHandManager : ICardHandManager
     {
         cardToAdd.CardMovementManager.ChangeParent(selfTransform);
         Vector3 targetPos = horizontalLayoutHandler.GetCardPositionForIndex(cardsInHand.Count);
-        cardToAdd.CardMovementManager.MoveToLocalPosition(targetPos, callback);
-        cardToAdd.CardMovementManager.ChangeScaleTo(GameData.Instance.GameplayData.GetCardScaleAtHand());
+        cardToAdd.CardMovementManager.MoveToLocalPosition(targetPos,GameData.Instance.AnimationData.cardNormalMovementTime, callback);
+        cardToAdd.CardMovementManager.ChangeScaleTo(GameData.Instance.GameplayData.GetCardScaleAtHand(),GameData.Instance.AnimationData.cardScaleAnimationTime);
         cardToAdd.OnCardPutInHand();
         cardsInHand.Add(cardToAdd);
     }
@@ -72,7 +72,7 @@ public class CardInHandManager : ICardHandManager
         for (int i = 0; i < cardsInHand.Count; i++)
         {
             targetPos = horizontalLayoutHandler.GetCardPositionForIndex(i);
-            cardsInHand[i].CardMovementManager.SnapToLocalPosition(targetPos);
+            cardsInHand[i].CardMovementManager.SnapToLocalPosition(targetPos,GameData.Instance.AnimationData.cardSnapMovementTime);
         }
     }
     #endregion
