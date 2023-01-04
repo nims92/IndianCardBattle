@@ -33,7 +33,7 @@ public class CardDeckManager : ICardDeckManager
         cardsInDeck.Remove(card);
     }
 
-    public Card DrawCardFromDeck(int energyCost)
+    public ICard DrawCardFromDeck(int energyCost)
     {
         var selectedCardID = SelectCardFromDeck(energyCost);
         var card = cardsInDeck.Find(c => c.CardID == selectedCardID);

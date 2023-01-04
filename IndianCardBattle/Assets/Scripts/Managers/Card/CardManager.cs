@@ -1,11 +1,10 @@
 using System;
 using UnityEngine;
 
-//TODO derive this class from interface
-public class CardManager
+public class CardManager : ICardManager
 {
-    private ICardDeckManager cardDeckManager;
-    private ICardHandManager cardHandManager;
+    private readonly ICardDeckManager cardDeckManager;
+    private readonly ICardHandManager cardHandManager;
 
     public CardManager(IObjectSpawner objectSpawner,
         Deck deck,Transform deckTransform, Transform handTransform, int maxCardInHand)
@@ -13,13 +12,12 @@ public class CardManager
         cardDeckManager = new CardDeckManager(objectSpawner,deck,deckTransform);
         cardHandManager = new CardInHandManager(handTransform,maxCardInHand);
     }
-
-
+    
     public void DrawNextCard(int cost, Action callback)
     {
         if (cardHandManager.CanAddCard)
         {
-            Card card = cardDeckManager.DrawCardFromDeck(cost);
+            var card = cardDeckManager.DrawCardFromDeck(cost);
             AddCardToHand(card, callback);
         }
         else
@@ -38,12 +36,12 @@ public class CardManager
         cardHandManager.RemoveCardFromHand(card);
     }
 
-    public ICard GetRandomPlaybleCardFromHand()
+    public ICard GetRandomPlayableCardFromHand()
     {
         return cardHandManager.GetRandomPlaybleCardFromHand();
     }
 
-    public void UpdateCardActiveState(int currentCost)
+    public void UpdateCardsInHandActiveState(int currentCost)
     {
         cardHandManager.UpdateCardsInHandActiveState(currentCost);
     }

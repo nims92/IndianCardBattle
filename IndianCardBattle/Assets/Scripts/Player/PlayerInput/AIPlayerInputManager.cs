@@ -23,7 +23,7 @@ public class AIPlayerInputManager : MonoBehaviour,IPlayerInputManager
     private IEnumerator RunAILogic()
     {
         ILocation location = locationManager.GetRandomLocation(player.Profile.GetPlayerID());
-        ICard card = player.PlayerCardManager.GetRandomPlaybleCardFromHand();
+        ICard card = player.PlayerCardManager.GetRandomPlayableCardFromHand();
         
         if(card != null)
             player.MoveCardFromHandToLocation(card,location);

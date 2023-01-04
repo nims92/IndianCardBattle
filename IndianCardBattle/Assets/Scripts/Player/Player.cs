@@ -60,7 +60,7 @@ public class Player
 
     private void UpdateCardInHandState()
     {
-        PlayerCardManager.UpdateCardActiveState(turnCostManager.CurrentCost);
+        PlayerCardManager.UpdateCardsInHandActiveState(turnCostManager.CurrentCost);
     }
     
     private void OnCardDrawnFromDeck()
