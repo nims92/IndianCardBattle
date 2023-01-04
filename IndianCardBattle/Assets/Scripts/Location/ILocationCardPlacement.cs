@@ -8,7 +8,6 @@ public interface ILocationCardPlacement
     Vector3 GetNextEmptyPosition();
     void AddCard(ICard card);
     void RemoveCard(ICard card);
-
     void LockAllPlacedCards();
 
 }
