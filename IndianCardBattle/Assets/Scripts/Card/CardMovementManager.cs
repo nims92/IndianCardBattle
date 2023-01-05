@@ -5,7 +5,7 @@ using UnityEngine;
 public class CardMovementManager : ICardMovementManager
 {
     private readonly Transform cardTransform;
-
+    
     public CardMovementManager(Transform cardTransform)
     {
         this.cardTransform = cardTransform;
