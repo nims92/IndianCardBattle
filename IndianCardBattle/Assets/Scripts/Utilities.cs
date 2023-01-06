@@ -5,7 +5,7 @@ using UnityEngine;
 
 public static class Utilities
 {
-    public static float GetDeviceAspectRatio()
+    private static float GetDeviceAspectRatio()
     {
         return (1f * Screen.width) / Screen.height;
     }
@@ -18,10 +18,10 @@ public static class Utilities
     public static bool IsTabletDevice()
     {
         var aspectRatio = GetDeviceAspectRatio();
-        return aspectRatio < 1.4f || aspectRatio < 1.65f;
+        return aspectRatio > 0.6f;
     }
     
-    public static List<t> GetRandomElements<t>(IEnumerable<t> list, int elementsCount)
+    public static List<T> GetRandomElements<T>(IEnumerable<T> list, int elementsCount)
     {
         return list.OrderBy(x => Guid.NewGuid()).Take(elementsCount).ToList();
     }

@@ -11,5 +11,9 @@ public class CameraManager : MonoBehaviour
     {
         if(!Utilities.IsTabletDevice())
             camera.fieldOfView = Utilities.CalculateVerticalFOV(desiredHorizontalFOV);
+        else
+        {
+            Debug.LogError("Tablet device");
+        }
     }
 }
