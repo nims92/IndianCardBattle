@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class CardManager : ICardManager
@@ -12,12 +13,12 @@ public class CardManager : ICardManager
         cardDeckManager = new CardDeckManager(objectSpawner,deck,deckTransform);
         cardHandManager = new CardInHandManager(handTransform,maxCardInHand);
     }
-    
-    public void DrawNextCard(int cost, Action callback)
+
+    public void DrawNextCard(int cost,Action callback,bool isForStartingDeck)
     {
         if (cardHandManager.CanAddCard)
         {
-            var card = cardDeckManager.DrawCardFromDeck(cost);
+            var card = cardDeckManager.DrawCardFromDeck(cost,isForStartingDeck);
             AddCardToHand(card, callback);
         }
         else
@@ -25,7 +26,7 @@ public class CardManager : ICardManager
             //TODO: implement logic to reset hand
         }
     }
-
+    
     public void AddCardToHand(ICard card,Action callback )
     {
         cardHandManager.AddCardToHand(card,callback);

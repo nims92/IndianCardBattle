@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Text;
 using UnityEngine;
 
 //TODO: derive from interface
@@ -10,9 +11,12 @@ public class Player
     //Triggers
     private CustomTrigger waitForCardAddedToHand = new CustomTrigger();
     private CustomTrigger waitForPlayerInputComplete = new CustomTrigger();
+    private int numberOfCardsToBeDrawn = 0;
+    private int numberOfCardsDrawn = 0;
+    private bool isForStartingDeck = false;
     
     public PlayerProfile Profile { get; }
-    public CardManager PlayerCardManager { get; }
+    public ICardManager PlayerCardManager { get; }
 
     public Player(string playerName,int playerID,PlayerInputType inputType,
         IPlayerInputManager inputManager,
@@ -30,11 +34,19 @@ public class Player
     private IEnumerator PlayerTurnLoop()
     {
         yield return new WaitForSeconds(1);
-        PlayerCardManager.DrawNextCard(turnCostManager.CurrentCost,OnCardDrawnFromDeck);
+
+        for (int i = 0; i < numberOfCardsToBeDrawn; i++)
+        {
+            PlayerCardManager.DrawNextCard(turnCostManager.CurrentCost,OnCardDrawnFromDeck,isForStartingDeck);
+            yield return new WaitForSeconds(0.25f);
+        }
+        
         yield return new WaitForTrigger(waitForCardAddedToHand);
         UpdateCardInHandState();
+        
         yield return new WaitForSeconds(0.5f);
         playerInputManager.OnPlayerTurnReceived();
+        
         yield return new WaitForTrigger(waitForPlayerInputComplete);
         OnPlayerTurnEnd();
     }
@@ -42,6 +54,20 @@ public class Player
     public void OnPlayerTurnReceived()
     {
         CustomEventManager.Instance.AddListener(UIEvents.END_TURN_BUTTON_PRESSED,OnPlayerInputComplete);
+
+        if (turnCostManager.CurrentCost == 1)
+        {
+            numberOfCardsToBeDrawn = GameData.Instance.GameConfiguration.numberOfCardsInStartingHand;
+            isForStartingDeck = true;
+            numberOfCardsDrawn = 0;
+        }
+        else
+        {
+            numberOfCardsToBeDrawn = 1;
+            isForStartingDeck = false;
+            numberOfCardsDrawn = 0;
+        }
+        
         playerInputManager.GetMonoBehaviourContext().StartCoroutine(PlayerTurnLoop());
     }
 
@@ -87,7 +113,10 @@ public class Player
     
     private void OnCardDrawnFromDeck()
     {
-        waitForCardAddedToHand.Set();
+        numberOfCardsDrawn++;
+        
+        if(numberOfCardsDrawn == numberOfCardsToBeDrawn)
+            waitForCardAddedToHand.Set();
     }
 
     private void OnPlayerInputComplete(params object[] args)

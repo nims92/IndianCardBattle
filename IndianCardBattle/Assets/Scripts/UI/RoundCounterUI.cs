@@ -36,7 +36,7 @@ public class RoundCounterUI : MonoBehaviour
         Tween slideOut = selfTransform.DOAnchorPosX(-1500f, 0.5f);
         Sequence animationSequence = DOTween.Sequence();
         animationSequence.Append(slideIn);
-        animationSequence.AppendInterval(1f);
+        animationSequence.AppendInterval(0.7f);
         animationSequence.Append(slideOut);
         animationSequence.Play().OnComplete(RoundCounterUIAnimationComplete);
     }

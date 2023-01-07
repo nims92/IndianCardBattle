@@ -33,23 +33,26 @@ public class CardDeckManager : ICardDeckManager
         cardsInDeck.Remove(card);
     }
 
-    public ICard DrawCardFromDeck(int energyCost)
+    public ICard DrawCardFromDeck(int energyCost, bool isForStartingDeck = false)
     {
-        var selectedCardID = SelectCardFromDeck(energyCost);
+        var selectedCardID = SelectCardFromDeck(energyCost, isForStartingDeck);
         var card = cardsInDeck.Find(c => c.CardID == selectedCardID);
         RemoveCardFromDeck(card);
         return card;
     }
 
     #region Private methods
-    private CardID SelectCardFromDeck(int energyCost)
+    private CardID SelectCardFromDeck(int energyCost, bool isForStartingDeck = false)
     {
         List<CardID> returnList = new List<CardID>();
-        
-        returnList.AddRange(GameData.Instance.CardDatabase.GetCardIDWithGivenCost(cardsInDeck,energyCost-1));
-        returnList.AddRange(GameData.Instance.CardDatabase.GetCardIDWithGivenCost(cardsInDeck,energyCost));
-        returnList.AddRange(GameData.Instance.CardDatabase.GetCardIDWithGivenCost(cardsInDeck,energyCost+1));
 
+        if (!isForStartingDeck)
+        {
+            returnList.AddRange(GameData.Instance.CardDatabase.GetCardIDWithGivenCost(cardsInDeck,energyCost-1));
+            returnList.AddRange(GameData.Instance.CardDatabase.GetCardIDWithGivenCost(cardsInDeck,energyCost));
+            returnList.AddRange(GameData.Instance.CardDatabase.GetCardIDWithGivenCost(cardsInDeck,energyCost+1));
+        }
+        
         int randomCardIndex;
         
         //Due to some reason, return list is still empty
@@ -63,7 +66,7 @@ public class CardDeckManager : ICardDeckManager
         randomCardIndex = Random.Range(0, returnList.Count);
         return returnList[randomCardIndex];
     }
-
+    
     private Card SpawnCard(CardID cardID)
     {
         return objectSpawner.SpawnObjectOfType(GameData.Instance.CardDatabase.GetCardPrefabByID(cardID),

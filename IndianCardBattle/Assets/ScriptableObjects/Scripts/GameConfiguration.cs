@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 public class GameConfiguration : ScriptableObject
 {
     public int numberOfRounds;
-    public int energyCostIncrementWithEachTurn;
     public int cardDeckSize;
     public int maxCardInHand;
+    public int numberOfCardsInStartingHand;
 }

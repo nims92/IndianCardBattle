@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: GameConfiguration
   m_EditorClassIdentifier: 
   numberOfRounds: 6
-  energyCostIncrementWithEachTurn: 1
   cardDeckSize: 12
   maxCardInHand: 5
+  numberOfCardsInStartingHand: 3
