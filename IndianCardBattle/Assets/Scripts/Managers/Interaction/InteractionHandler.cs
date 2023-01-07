@@ -42,6 +42,7 @@ public class InteractionHandler : MonoBehaviour
             {
                 currentClickedCard = cardClicked;
                 cardStartPosition = currentClickedCard.GetCardTransform().position;
+                CustomEventManager.Instance.Invoke(InteractionEvents.CARD_TOUCH_START);
             }
         }
     }
@@ -102,6 +103,7 @@ public class InteractionHandler : MonoBehaviour
             }
             
             currentClickedCard = null;
+            CustomEventManager.Instance.Invoke(InteractionEvents.CARD_TOUCH_END);
         }
     }
 }

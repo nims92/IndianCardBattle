@@ -11,6 +11,8 @@ public class Player
     //Triggers
     private CustomTrigger waitForCardAddedToHand = new CustomTrigger();
     private CustomTrigger waitForPlayerInputComplete = new CustomTrigger();
+    
+    
     private int numberOfCardsToBeDrawn = 0;
     private int numberOfCardsDrawn = 0;
     private bool isForStartingDeck = false;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,25 @@ public class LocationCardPlacement :MonoBehaviour, ILocationCardPlacement
     private List<Vector3> placements;
     private List<ICard> currentCards;
     private Transform selfTransform;
+
+    [SerializeField] private GameObject areaHighlight;
+
+    #region Monobehaviour
+
+    private void OnEnable()
+    {
+        CustomEventManager.Instance.AddListener(InteractionEvents.CARD_TOUCH_START,EnableHightlight);
+        CustomEventManager.Instance.AddListener(InteractionEvents.CARD_TOUCH_END,DisableHightlight);
+    }
+
+    private void OnDisable()
+    {
+        CustomEventManager.Instance.RemoveListener(InteractionEvents.CARD_TOUCH_START,EnableHightlight);
+        CustomEventManager.Instance.RemoveListener(InteractionEvents.CARD_TOUCH_END,DisableHightlight);
+    }
+
+    #endregion
+    
     
     public void Init(List<Vector3> placementPositions)
     {
@@ -49,5 +69,20 @@ public class LocationCardPlacement :MonoBehaviour, ILocationCardPlacement
         {
             card.SetCardLockedAtLocation();
         }
+    }
+
+    private void EnableHightlight(params object []args)
+    {
+        if(IsPlacementAreaFull())
+            return;
+        
+        if(areaHighlight)
+            areaHighlight.SetActive(true);
+    }
+
+    private void DisableHightlight(params object []args)
+    {
+        if(areaHighlight)
+            areaHighlight.SetActive(false);
     }
 }
