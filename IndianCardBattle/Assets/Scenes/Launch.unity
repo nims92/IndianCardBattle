@@ -374,7 +374,7 @@ MonoBehaviour:
   thisScreen: 1
   canGoBackToPreviousScreen: 0
   enablePopupScreenAlsoOnGoingBack: 0
-  timePauseOnLaunchScreen: 2
+  timePauseOnLaunchScreen: 1.5
 --- !u!1 &558844127
 GameObject:
   m_ObjectHideFlags: 0
