@@ -1,7 +1,6 @@
-namespace Trigger
+public interface ITrigger
 {
-    public interface ITrigger
-    {
-        
-    }
+    bool Get();
+    void Set();
+    void Reset();
 }

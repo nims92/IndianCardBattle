@@ -20,6 +20,9 @@ public class HumanPlayerInputManager : MonoBehaviour, IPlayerInputManager
     {
         interactionHandler.InteractionEnabled = false;
     }
-    
 
+    public MonoBehaviour GetMonoBehaviourContext()
+    {
+        return this;
+    }
 }

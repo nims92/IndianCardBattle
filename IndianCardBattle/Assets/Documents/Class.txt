@@ -1,16 +1,12 @@
-Player:
-    - Card Manager
-        - Deck manager
-        - Hand manager
-    - Input Manager
-        - AI
-        - Touch/Mouse
-        - Photon
-    - Profile
-        - Name
-        - Icon
-        
-        
-Turn Manager:
-       
-        
+Game Loop:
+1. Wait for game loaded event
+2. Start Round manager (while loop run for n rounds)
+    1. Show UI related to round start
+    2. Set round cost
+    3. Start Turn manager (While loop run for n players)
+        1. On player turn received
+        2. Draw n cards
+        3. User presses turn end button
+    4. Update Location scores
+3. Check for winner
+4. Start game win sequence

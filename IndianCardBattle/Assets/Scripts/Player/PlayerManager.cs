@@ -8,18 +8,18 @@ public class PlayerManager : MonoBehaviour
     private Player SelfPlayer { get; set; }
     private Player OpponentPlayer { get; set; }
 
-    #region Monobehaviour
+    /*#region Monobehaviour
     private void OnEnable()
     {
         CustomEventManager.Instance.AddListener(GameFlowEvents.GAME_START_EVENT,OnTurnUpdated);
-        CustomEventManager.Instance.AddListener(TurnEvents.TURN_UPDATED,OnTurnUpdated);
+        //CustomEventManager.Instance.AddListener(TurnEvents.TURN_UPDATED,OnTurnUpdated);
     }
     private void OnDisable()
     {
         CustomEventManager.Instance.RemoveListener(GameFlowEvents.GAME_START_EVENT,OnTurnUpdated);
-        CustomEventManager.Instance.RemoveListener(TurnEvents.TURN_UPDATED,OnTurnUpdated);
+        //CustomEventManager.Instance.RemoveListener(TurnEvents.TURN_UPDATED,OnTurnUpdated);
     }
-    #endregion
+    #endregion*/
 
     public void InitPlayers(IObjectSpawner objectSpawner, GameAreaLocationProvider areaLocationProvider)
     {
@@ -52,20 +52,16 @@ public class PlayerManager : MonoBehaviour
         CustomEventManager.Instance.Invoke(UIEvents.OPPONENT_PROFILE_INITIALIZED,OpponentPlayer.Profile.GetPlayerName());
     }
     
-    private void OnTurnUpdated(params object[] args)
+    public void OnTurnUpdated(int currentPlayerTurnIndex)
     {
-        int currentPlayerTurnIndex = (int)args[0];
-
+        CustomEventManager.Instance.Invoke(TurnEvents.TURN_UPDATED, currentPlayerTurnIndex);
         if (currentPlayerTurnIndex == 0)
         {
             SelfPlayer.OnPlayerTurnReceived();
-            OpponentPlayer.OnPlayerTurnEnd();
         }
         else
         {
             OpponentPlayer.OnPlayerTurnReceived();
-            SelfPlayer.OnPlayerTurnEnd();
         }
-            
     }
 }

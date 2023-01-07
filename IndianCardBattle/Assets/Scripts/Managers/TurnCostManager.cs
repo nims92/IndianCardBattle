@@ -6,7 +6,7 @@ public class TurnCostManager
     public TurnCostManager(bool shouldFireUIUpdateEvents)
     {
         this.shouldFireUIUpdateEvents = shouldFireUIUpdateEvents;
-        CustomEventManager.Instance.AddListener(TurnEvents.UPDATE_TURN_COST,SetCost);
+        CustomEventManager.Instance.AddListener(RoundEvents.ROUND_START,SetCost);
     }
 
     public void UpdateTurnCost(int costUpdateBy)

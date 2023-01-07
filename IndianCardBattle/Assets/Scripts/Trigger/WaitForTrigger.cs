@@ -1,8 +1,19 @@
 using UnityEngine;
 
-public class TriggerCheck : CustomYieldInstruction
+public class WaitForTrigger : CustomYieldInstruction
 {
-    public override bool keepWaiting { get; }
+    private readonly ITrigger trigger;
+
+    public override bool keepWaiting
+    {
+        get
+        {
+            return !trigger.Get();
+        }
+    }
     
-    
+    public WaitForTrigger(ITrigger trigger) 
+    {
+        this.trigger = trigger;
+    }
 }

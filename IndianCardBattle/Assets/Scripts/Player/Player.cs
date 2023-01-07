@@ -1,9 +1,15 @@
+using System.Collections;
 using UnityEngine;
 
+//TODO: derive from interface
 public class Player
 {
     private readonly TurnCostManager turnCostManager;
     private readonly IPlayerInputManager playerInputManager;
+    
+    //Triggers
+    private CustomTrigger waitForCardAddedToHand = new CustomTrigger();
+    private CustomTrigger waitForPlayerInputComplete = new CustomTrigger();
     
     public PlayerProfile Profile { get; }
     public CardManager PlayerCardManager { get; }
@@ -21,14 +27,30 @@ public class Player
         playerInputManager.SetupPlayerInput(this);
     }
 
+    private IEnumerator PlayerTurnLoop()
+    {
+        yield return new WaitForSeconds(1);
+        PlayerCardManager.DrawNextCard(turnCostManager.CurrentCost,OnCardDrawnFromDeck);
+        yield return new WaitForTrigger(waitForCardAddedToHand);
+        UpdateCardInHandState();
+        yield return new WaitForSeconds(0.5f);
+        playerInputManager.OnPlayerTurnReceived();
+        yield return new WaitForTrigger(waitForPlayerInputComplete);
+        OnPlayerTurnEnd();
+    }
+
     public void OnPlayerTurnReceived()
     {
-        PlayerCardManager.DrawNextCard(turnCostManager.CurrentCost,OnCardDrawnFromDeck);
+        CustomEventManager.Instance.AddListener(UIEvents.END_TURN_BUTTON_PRESSED,OnPlayerInputComplete);
+        playerInputManager.GetMonoBehaviourContext().StartCoroutine(PlayerTurnLoop());
     }
 
     public void OnPlayerTurnEnd()
     {
+        CustomEventManager.Instance.RemoveListener(UIEvents.END_TURN_BUTTON_PRESSED,OnPlayerInputComplete);
+        ResetTriggers();
         playerInputManager.OnPlayerTurnEnded();
+        CustomEventManager.Instance.Invoke(TurnEvents.CURRENT_TURN_ENDED);
     }
 
     public void MoveCardFromHandToLocation(ICard card, ILocation destinationLocation)
@@ -65,7 +87,16 @@ public class Player
     
     private void OnCardDrawnFromDeck()
     {
-        UpdateCardInHandState();
-        playerInputManager.OnPlayerTurnReceived();
+        waitForCardAddedToHand.Set();
+    }
+
+    private void OnPlayerInputComplete(params object[] args)
+    {
+        waitForPlayerInputComplete.Set();
+    }
+
+    private void ResetTriggers()
+    {
+        waitForCardAddedToHand.Reset();
     }
 }

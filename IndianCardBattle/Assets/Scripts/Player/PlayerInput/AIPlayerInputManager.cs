@@ -38,4 +38,9 @@ public class AIPlayerInputManager : MonoBehaviour,IPlayerInputManager
     {
         
     }
+
+    public MonoBehaviour GetMonoBehaviourContext()
+    {
+        return this;
+    }
 }

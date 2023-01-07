@@ -12,22 +12,23 @@ public class RoundCounterUI : MonoBehaviour
 
     private void OnEnable()
     {
-        CustomEventManager.Instance.AddListener(TurnEvents.UPDATE_TURN_COST,ShowRoundCounterUI);
+        CustomEventManager.Instance.AddListener(RoundEvents.ROUND_START,ShowRoundCounterUI);
     }
 
     private void OnDisable()
     {
-        CustomEventManager.Instance.RemoveListener(TurnEvents.UPDATE_TURN_COST,ShowRoundCounterUI);
+        CustomEventManager.Instance.RemoveListener(RoundEvents.ROUND_START,ShowRoundCounterUI);
     }
 
     private void Start()
     {
-        TotalRoundCount = GameData.Instance.GameConfiguration.numberOfTurns;
+        TotalRoundCount = GameData.Instance.GameConfiguration.numberOfRounds;
         startPosition = selfTransform.anchoredPosition;
     }
 
     private void ShowRoundCounterUI(params object [] args)
     {
+        
         roundCounterText.text = $"{(int)args[0]}/{TotalRoundCount}";
 
         selfTransform.anchoredPosition = startPosition;

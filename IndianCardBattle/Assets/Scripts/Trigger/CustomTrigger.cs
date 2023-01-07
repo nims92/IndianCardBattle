@@ -1,7 +1,25 @@
-namespace Trigger
+public class CustomTrigger : ITrigger
 {
-    public class CustomTrigger
+    private bool value;
+    
+    public bool Get()
     {
-        
+        if (value) 
+        { 
+            value = false; 
+            return true; 
+        } 
+        else 
+            return false; 
+    }
+
+    public void Set()
+    {
+        value = true;
+    }
+
+    public void Reset()
+    {
+        value = false;
     }
 }

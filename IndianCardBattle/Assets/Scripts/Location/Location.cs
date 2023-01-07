@@ -30,17 +30,20 @@ public class Location : MonoBehaviour, ILocation, IUnlockable
         LocationCardPlacementManager.Init();
         
         //Event subscription
-        CustomEventManager.Instance.AddListener(TurnEvents.UPDATE_TURN_COST,OnRoundUpdate);
+        CustomEventManager.Instance.AddListener(RoundEvents.ROUND_START,OnRoundStart);
+        CustomEventManager.Instance.AddListener(RoundEvents.ROUND_END,OnRoundEnd);
         CustomEventManager.Instance.AddListener(TurnEvents.TURN_UPDATED,OnTurnUpdate);
         
-        OnRoundUpdate(1);
     }
 
-    public void OnRoundUpdate(params object []args)
+    public void OnRoundStart(params object[] args)
     {
         if (CheckIfLocationUnlocked((int)args[0]))
             OnIslandUnlocked();
-        
+    }
+    
+    public void OnRoundEnd(params object []args)
+    {
         LocationViewManager.UpdateScore(true,LocationScoreManager.GetScoreForPlayer(0));
         LocationViewManager.UpdateScore(false,LocationScoreManager.GetScoreForPlayer(1));
         LocationViewManager.OnPlayerScoresUpdated(LocationScoreManager.GetScoreForPlayer(0),LocationScoreManager.GetScoreForPlayer(1));
