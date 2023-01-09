@@ -11,4 +11,7 @@ public class GameConfiguration : ScriptableObject
     public int cardDeckSize;
     public int maxCardInHand;
     public int numberOfCardsInStartingHand;
+    
+    [Tooltip("Turn time in seconds")]
+    public int turnTime;
 }

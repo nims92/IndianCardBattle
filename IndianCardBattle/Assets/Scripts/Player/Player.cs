@@ -53,11 +53,30 @@ public class Player
         OnPlayerTurnEnd();
     }
 
+    private IEnumerator PrewarmHand()
+    {
+        yield return new WaitForSeconds(0.5f);
+        
+        for (int i = 0; i < numberOfCardsToBeDrawn; i++)
+        {
+            PlayerCardManager.DrawNextCard(turnCostManager.CurrentCost,OnCardDrawnFromDeck,true);
+            yield return new WaitForSeconds(0.25f);
+        }
+    }
+
+    public void PrewarmCardsInHand(int cardCount)
+    {
+        numberOfCardsToBeDrawn = cardCount;
+        isForStartingDeck = false;
+        numberOfCardsDrawn = 0;
+        playerInputManager.GetMonoBehaviourContext().StartCoroutine(PrewarmHand());
+    }
+
     public void OnPlayerTurnReceived()
     {
         CustomEventManager.Instance.AddListener(UIEvents.END_TURN_BUTTON_PRESSED,OnPlayerInputComplete);
 
-        if (turnCostManager.CurrentCost == 1)
+        /*if (turnCostManager.CurrentCost == 1)
         {
             numberOfCardsToBeDrawn = GameData.Instance.GameConfiguration.numberOfCardsInStartingHand;
             isForStartingDeck = true;
@@ -68,8 +87,11 @@ public class Player
             numberOfCardsToBeDrawn = 1;
             isForStartingDeck = false;
             numberOfCardsDrawn = 0;
-        }
+        }*/
         
+        numberOfCardsToBeDrawn = 1;
+        isForStartingDeck = false;
+        numberOfCardsDrawn = 0;
         playerInputManager.GetMonoBehaviourContext().StartCoroutine(PlayerTurnLoop());
     }
 

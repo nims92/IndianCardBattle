@@ -16,3 +16,4 @@ MonoBehaviour:
   cardDeckSize: 12
   maxCardInHand: 5
   numberOfCardsInStartingHand: 3
+  turnTime: 45

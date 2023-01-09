@@ -55,9 +55,18 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator CoreGameLoop()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         var numberOfRounds = GameData.Instance.GameConfiguration.numberOfRounds;
         
+        //Pre-warm hand
+        for (int k = 0; k < Constants.NUMBER_OF_PLAYERS; k++)
+        {
+            playerManager.PrewarmHand(k);
+        }
+
+        yield return new WaitForSeconds(2f);
+        
+        //Start the game
         for (var i = 0; i < numberOfRounds; i++)
         {
             roundManager.OnRoundStart();

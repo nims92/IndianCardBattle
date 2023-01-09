@@ -64,4 +64,16 @@ public class PlayerManager : MonoBehaviour
             OpponentPlayer.OnPlayerTurnReceived();
         }
     }
+
+    public void PrewarmHand(int playerIndex)
+    {
+        if (playerIndex == 0)
+        {
+            SelfPlayer.PrewarmCardsInHand(GameData.Instance.GameConfiguration.numberOfCardsInStartingHand);
+        }
+        else
+        {
+            OpponentPlayer.PrewarmCardsInHand(GameData.Instance.GameConfiguration.numberOfCardsInStartingHand);
+        }
+    }
 }
