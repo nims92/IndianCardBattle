@@ -1,6 +1,7 @@
 public static class UIEvents
 {
     public const string END_TURN_BUTTON_PRESSED = "EndTurnButtonPressed";
+    public const string END_TIMER_END = "EndTimerEnd";
     public const string GAME_RESTART_BUTTON_PRESSED = "GameRestartButtonPressed";
     public const string PLAYER_PROFILE_INITIALIZED = "PlayerProfileInitialized";
     public const string OPPONENT_PROFILE_INITIALIZED = "OpponentProfileInitialized";

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class InteractionHandler : MonoBehaviour
@@ -14,6 +15,17 @@ public class InteractionHandler : MonoBehaviour
     public bool InteractionEnabled { get; set; }
     
     #region MonoBehaviour
+
+    private void OnEnable()
+    {
+        CustomEventManager.Instance.AddListener(UIEvents.END_TURN_BUTTON_PRESSED,OnEndTurnButtonPressed);
+    }
+
+    private void OnDisable()
+    {
+        CustomEventManager.Instance.RemoveListener(UIEvents.END_TURN_BUTTON_PRESSED,OnEndTurnButtonPressed);
+    }
+
     void Update()
     {
         if(InteractionEnabled)
@@ -105,5 +117,20 @@ public class InteractionHandler : MonoBehaviour
             currentClickedCard = null;
             CustomEventManager.Instance.Invoke(InteractionEvents.CARD_TOUCH_END);
         }
+    }
+
+    private void ForceInputUpdate()
+    {
+        if (currentClickedCard != null)
+        {
+            player.MoveCardToHand(currentClickedCard,cardStartPosition);
+            currentClickedCard = null;
+            CustomEventManager.Instance.Invoke(InteractionEvents.CARD_TOUCH_END);
+        }
+    }
+
+    private void OnEndTurnButtonPressed(params object[] args)
+    {
+        ForceInputUpdate();
     }
 }

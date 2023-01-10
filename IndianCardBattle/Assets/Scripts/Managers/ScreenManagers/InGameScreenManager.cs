@@ -7,13 +7,11 @@ using UnityEngine.UI;
 
 public class InGameScreenManager : UIBase
 {
-    [Header("Scene Reference")] 
-    [SerializeField] private Button turnButton;
-    [SerializeField] private TextMeshProUGUI turnButtonText;
+    [Header("Scene Reference")]
     [SerializeField] private PlayerProfileView selfPlayerProfileView;
     [SerializeField] private PlayerProfileView opponentPlayerProfileView;
     [SerializeField] private TextMeshProUGUI costCounterText;
-    
+    [SerializeField] private TurnButtonUI turnButtonUI;
     #region Monobehaviour callbacks
 
     private void OnEnable()
@@ -55,20 +53,12 @@ public class InGameScreenManager : UIBase
 
         if (currentTurnPlayerIndex == 0)
         {
-            turnButton.interactable = true;
-            turnButtonText.text = Constants.PLAYER_TURN_BUTTON_TEXT;
-
+            turnButtonUI.OnPlayerTurnReceived();
         }
         else
         {
-            turnButton.interactable = false;
-            turnButtonText.text = Constants.OPPONENT_TURN_BUTTON_TEXT;
-
+            turnButtonUI.OnOpponentTurnReceived();
         }
     }
 
-    public void OnEndTurnButtonPressed()
-    {
-        CustomEventManager.Instance.Invoke(UIEvents.END_TURN_BUTTON_PRESSED);
-    }
 }

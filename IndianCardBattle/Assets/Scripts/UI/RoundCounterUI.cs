@@ -6,7 +6,7 @@ public class RoundCounterUI : MonoBehaviour
 {
     [SerializeField] private RectTransform selfTransform;
     [SerializeField] private TextMeshProUGUI roundCounterText;
-
+    [SerializeField] private TurnTimerUI turnTimerUI;
     private int TotalRoundCount;
     private Vector3 startPosition;
 
