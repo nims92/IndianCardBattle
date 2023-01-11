@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfRounds: 6
   cardDeckSize: 12
-  maxCardInHand: 5
+  maxCardInHand: 7
   numberOfCardsInStartingHand: 3
   turnTime: 45

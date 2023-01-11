@@ -19,7 +19,8 @@ public class CardInHandManager : ICardHandManager
         selfTransform = transform;
         MaxCardCountInHand = maxCardCountInHand;
         cardsInHand = new List<ICard>();
-        horizontalLayoutHandler = new CardHorizontalLayoutHandler(selfTransform,16f,-30f);
+        //horizontalLayoutHandler = new CardHorizontalLayoutHandler(selfTransform,16f,-30f);
+        horizontalLayoutHandler = new CardHorizontalLayoutHandler(selfTransform,16f,0f);
     }
     
     public void AddCardToHand(ICard cardToAdd, Action callback)
@@ -30,12 +31,14 @@ public class CardInHandManager : ICardHandManager
         cardToAdd.CardMovementManager.ChangeScaleTo(GameData.Instance.GameplayData.GetCardScaleAtHand(),GameData.Instance.AnimationData.cardScaleAnimationTime);
         cardToAdd.OnCardPutInHand();
         cardsInHand.Add(cardToAdd);
+        horizontalLayoutHandler.UpdateLayout();
     }
 
     public void RemoveCardFromHand(ICard cardToRemove)
     {
         cardsInHand.Remove(cardToRemove);
         UpdateCardsPositionInHand();
+        horizontalLayoutHandler.UpdateLayout();
     }
 
     public ICard GetRandomPlaybleCardFromHand()

@@ -23,7 +23,7 @@ public class CardManager : ICardManager
         }
         else
         {
-            //TODO: implement logic to reset hand
+            callback?.Invoke();
         }
     }
     
